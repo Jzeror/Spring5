@@ -1,7 +1,10 @@
 package com.gms.web.mbr;
 
-import javax.servlet.http.HttpSession;
 
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class MemberCtrl {
 	static final Logger logger = LoggerFactory.getLogger(MemberCtrl.class);
 	@Autowired MemberService memberService;
+	@Autowired MemberMapper mbrMapper;
+	@Autowired Member mbr;
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(@ModelAttribute("member") Member member) {
 		logger.info("Member Controller :: add()");
@@ -62,10 +67,18 @@ public class MemberCtrl {
 		return "redirect:/";
 	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(Model model, @ModelAttribute("member") Member member) {
+	public String login(Model model, @ModelAttribute("member") Member param) {
 		logger.info("Member Controller :: login()");
-		if(memberService.login(member)) {
-			model.addAttribute("user", memberService.retrieve(member));
+		Predicate<String> p = s -> !s.equals("");
+		/*Predicate<String> p = s -> !s.equals("");
+		String r = mbrMapper.exist(param.getMemId());
+		boolean b = p.test(r);*/
+		if(p.test(mbrMapper.exist(param.getMemId()))) {
+			Function<Member,Member> f = (t)->{
+				return mbrMapper.selectOne(t);
+			};
+			//Member mbr = f.apply(param);
+			model.addAttribute("user", f.apply(param));
 		}else {
 			return "auth:member/login.tiles" ;
 		}

@@ -1,11 +1,9 @@
-package com.gms.web.mapper;
+package com.gms.web.mbr;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
-
-import com.gms.web.mbr.Member;
 
 
 @Repository
@@ -18,4 +16,5 @@ public interface MemberMapper {
 	public void update(Member p);
 	public void delete(Member p);
 	public boolean login(Member p);
+	public String exist(String p);
 }
