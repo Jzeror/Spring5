@@ -17,3 +17,38 @@
 1536565802807	Rename package 'com.gms.web.service.mapper'
 1536565816463	Copy package
 1536566292466	Rename package 'com.gms.web.serviceImpl'
+1536627652411	Copy compilation unit
+1536627660877	Copy compilation unit
+1536627697041	Delete element
+1536627710005	Copy compilation unit
+1536627711969	Delete element
+1536627718317	Delete element
+1536627737893	Move compilation unit
+1536627742845	Move compilation unit
+1536627752139	Copy compilation unit
+1536627754137	Delete element
+1536627756453	Move compilation unit
+1536627759027	Copy compilation unit
+1536627760657	Delete element
+1536627779033	Move compilation unit
+1536627828306	Rename package 'com.gms.web.member'
+1536627836484	Rename package 'com.gms.web.board'
+1536627874641	Rename package 'com.gms.exam'
+1536627905885	Move compilation unit
+1536627917951	Move compilation unit
+1536627926491	Delete element
+1536627955211	Move compilation unit
+1536627959508	Rename package 'com.gms.img'
+1536627965707	Move compilation unit
+1536627975405	Move compilation unit
+1536627993784	Move compilation unit
+1536628059156	Rename package 'cmm'
+1536628076715	Rename type 'ArticleDTO'
+1536628081732	Rename type 'BoardController'
+1536628097246	Rename type 'HomeController'
+1536628110438	Delete element
+1536628112454	Delete element
+1536628117325	Rename type 'ImageDTO'
+1536628133235	Rename type 'MemberController'
+1536628136676	Rename type 'MemberDTO'
+1536628251070	Rename package 'com.gms.service'
