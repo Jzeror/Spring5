@@ -52,3 +52,11 @@
 1536628133235	Rename type 'MemberController'
 1536628136676	Rename type 'MemberDTO'
 1536628251070	Rename package 'com.gms.service'
+1536648963844	Copy package
+1536648969958	Rename package 'com.gms.web.mapper'
+1536648976841	Move file
+1536648980733	Delete element
+1536649016544	Move compilation unit
+1536649025406	Move compilation unit
+1536649031960	Delete element
+1536649048681	Delete element
