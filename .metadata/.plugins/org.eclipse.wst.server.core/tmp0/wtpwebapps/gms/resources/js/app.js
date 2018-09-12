@@ -63,50 +63,8 @@ app = {
 							method : "POST"})
 					.submit();
 			});
-			
-			$('#memId').text(app.session.getItem('memId'));
-			$('#name').text(app.session.getItem('name'));
-			$('#age').text(app.session.getItem('age'));
-			$('#ssn').text(app.session.getItem('ssn'));
-			$('#gender').text(app.session.getItem('gender'));
-			$('#teamId').val(app.session.getItem('teamId')).prop('selected',true);
-			$('#roll').val(app.session.getItem('roll')).prop('selected',true);
-			
 		},
 		setContentView : ()=>{
 			console.log('step 4'+app.j());
 		}
 };
-app.session = {
-		context : x=>{
-			console.log('step 2'+x);
-			sessionStorage.setItem('context', x);
-			sessionStorage.setItem('js', x+'/resources/js');
-			sessionStorage.setItem('css', x+'/resources/css');
-			sessionStorage.setItem('img', x+'/resources/img');
-		},
-		getItem : x=>{
-			return sessionStorage.getItem(x);
-		}
-}
-app.x = ()=>{
-	return app.session.getItem('context');
-}
-app.j = ()=>{
-	return app.session.getItem('js');
-}
-app.c = ()=>{
-	return app.session.getItem('css');
-}
-app.i = ()=>{
-	return app.session.getItem('img');
-}
-
-user.session = x =>{
-	var s = '';
-	$.each(x, function(k, v){
-		s += 'key : '+k+' / value : '+v+'\n';
-		sessionStorage.setItem(k, v);
-	});
-	alert(s);
-}

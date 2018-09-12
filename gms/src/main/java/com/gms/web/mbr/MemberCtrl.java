@@ -64,7 +64,7 @@ public class MemberCtrl {
 	@RequestMapping("/remove")
 	public String remove(@ModelAttribute Member member, Model model) {
 		logger.info("Member Controller :: remove()");
-		member.setMemId(((Member) model.asMap().get("user")).getMemId());
+		member.setMemId(((Member) model.asMap().get("user")).getMemId()); 
 		memberService.remove(member);
 		return "redirect:/";
 	}
