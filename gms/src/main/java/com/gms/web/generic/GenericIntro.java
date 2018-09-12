@@ -35,7 +35,7 @@ public class GenericIntro {
 		abox.add(new Apple());
 		abox.add(new Apple());
 		
-		System.out.println(new Mixer().makeJuice(fbox));
+		System.out.println(new Mixer().makeJuice(fbox).toString());
 		System.out.println(new Mixer().makeJuice(abox));
 	}	
 }

@@ -2,12 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="myba" key="selection"/>
+		<item value="jac" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="jac"/>
+			<item value="tiles"/>
+			<item value="&lt;!-- jackson --&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-core&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.module&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-module-jaxb-annotations&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.jaxrs&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-jaxrs-json-provider&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jaxb-impl&lt;/artifactId&gt;&#x0A;&lt;version&gt;2.2.2&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;org.codehaus.jackson&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-mapper-asl&lt;/artifactId&gt;&#x0A;&lt;version&gt;1.9.2&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;!-- Json --&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;json-lib&lt;/artifactId&gt;&#x0A;&lt;version&gt;2.4&lt;/version&gt;&#x0A;&lt;classifier&gt;jdk15&lt;/classifier&gt;&#x0A;&lt;/dependency&gt;&#x0A;&#x0A;&#x0A;&#x0A;Collapse &#x0A;Message Input&#x0A;&#x0A;&#x0A;Message #general"/>
+			<item value="tiles\"/>
+			<item value="tiles3"/>
+			<item value="tIle3"/>
+			<item value="jack"/>
+			<item value="s"/>
 			<item value="myba"/>
 			<item value="extends Fruit{}"/>
 			<item value="4.0.0"/>
@@ -15,8 +23,6 @@
 			<item value="jquery"/>
 			<item value="spring"/>
 			<item value="tomcat"/>
-			<item value="tom"/>
-			<item value="tiles"/>
 		</list>
 		<list key="replacehistory">
 			<item value="gms"/>
@@ -26,7 +32,7 @@
 		<item value="288" key="DIALOG_WIDTH"/>
 		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
 		<item value="390" key="DIALOG_HEIGHT"/>
-		<item value="966" key="DIALOG_X_ORIGIN"/>
-		<item value="171" key="DIALOG_Y_ORIGIN"/>
+		<item value="939" key="DIALOG_X_ORIGIN"/>
+		<item value="294" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

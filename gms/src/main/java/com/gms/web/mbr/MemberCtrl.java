@@ -1,38 +1,33 @@
 package com.gms.web.mbr;
 
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.gms.web.cmm.Util;
 
-@Controller
+@RestController
 @RequestMapping("/member")
-@SessionAttributes("user")
 public class MemberCtrl {
 	static final Logger logger = LoggerFactory.getLogger(MemberCtrl.class);
-	@Autowired
-	MemberService memberService;
-	@Autowired
-	MemberMapper mbrMapper;
-	@Autowired
-	Member mbr;
+	@Autowired	MemberService memberService;
+	@Autowired	MemberMapper mbrMapper;
+	@Autowired	Member mbr;
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute("member") Member member) {
 		logger.info("Member Controller :: add()");
 		memberService.add(member);
-		return "auth:member/login.tiles";
+		return "";
 	}
 
 	/*
@@ -54,7 +49,7 @@ public class MemberCtrl {
 	 */
 	@RequestMapping("/retrieve")
 	public String retrieve() {
-		return "login:member/retrieve.tiles";
+		return "";
 	}
 
 	@RequestMapping(value = "/modify", method = RequestMethod.POST)
@@ -63,7 +58,7 @@ public class MemberCtrl {
 		member.setMemId(((Member) model.asMap().get("user")).getMemId());
 		memberService.modify(member);
 		model.addAttribute("user", memberService.retrieve((Member) model.asMap().get("user")));
-		return "login:member/retrieve.tiles";
+		return "";
 	}
 
 	@RequestMapping("/remove")
@@ -74,13 +69,9 @@ public class MemberCtrl {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@PostMapping("/login")
 	public String login(Model model, @ModelAttribute("member") Member param) {
 		logger.info("Member Controller :: login()");
-		/*
-		 * Predicate<String> p = s -> !s.equals(""); String r =
-		 * mbrMapper.exist(param.getMemId()); boolean b = p.test(r);
-		 */
 		String view = "";
 		if (Util.notEmpty.test(mbrMapper.exist(param.getMemId()))) {
 			Predicate<Member> f = s -> mbrMapper.login(s); //얘는 한번만 쓰는 거라 util에 안넣을 것.

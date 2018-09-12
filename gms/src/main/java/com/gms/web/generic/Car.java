@@ -15,7 +15,7 @@ public class Car {
 }
 class BMW extends Car{
 	BMW(String name, int price){
-		super(name,price);
+		super(name,price);  //
 	}
 }
 class Avante extends Car{

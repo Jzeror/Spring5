@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @RequestMapping("/board")
-@SessionAttributes("")
 public class BoardCtrl {
 	static final Logger logger = LoggerFactory.getLogger(BoardCtrl.class);
 	@Autowired Article article;

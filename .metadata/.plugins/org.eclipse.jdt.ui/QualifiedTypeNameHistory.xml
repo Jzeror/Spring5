@@ -26,7 +26,13 @@
 <fullyQualifiedTypeName name="com.gms.web.lambda.Calc"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="com.gms.web.mapper.MemberMapper"/>
-<fullyQualifiedTypeName name="java.util.function.Predicate"/>
-<fullyQualifiedTypeName name="java.util.function.Function"/>
 <fullyQualifiedTypeName name="com.gms.web.mbr.Member"/>
+<fullyQualifiedTypeName name="com.gms.web.mbr.MemberMapper"/>
+<fullyQualifiedTypeName name="java.util.function.Function"/>
+<fullyQualifiedTypeName name="java.util.function.Supplier"/>
+<fullyQualifiedTypeName name="java.util.function.Consumer"/>
+<fullyQualifiedTypeName name="com.gms.web.cmm.Util"/>
+<fullyQualifiedTypeName name="java.util.function.Predicate"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RestController"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
 </qualifiedTypeNameHistroy>
