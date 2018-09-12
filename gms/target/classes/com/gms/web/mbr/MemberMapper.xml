@@ -8,6 +8,11 @@
 	    FROM MEMBER 
 	    WHERE memId LIKE #{memId} AND password LIKE #{password}
 	</select>
+	<select id="login" resultType="boolean">
+	    SELECT memId, teamId, name, ssn, roll, password, age, gender 
+	    FROM MEMBER 
+	    WHERE memId LIKE #{memId} AND password LIKE #{password}
+	</select>
 	<select id="exist" resultType="string">
 	    SELECT memId FROM MEMBER WHERE memId LIKE #{memId}
 	</select>
