@@ -6,6 +6,7 @@ content_assist_proposals_background=52,57,61
 content_assist_proposals_foreground=238,238,238
 eclipse.preferences.version=1
 fontPropagated=true
+javaScriptOccurrenceIndicationColor=18,79,120
 java_bracket=249,250,244
 java_comment_task_tag=154,140,124
 java_default=217,232,247
