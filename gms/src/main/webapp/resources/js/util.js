@@ -19,3 +19,7 @@ $.prototype.zeroChecker = x=>{
 	}
 	return flag;
 }
+$.prototype.label = (x,y)=>{
+	
+	return label;
+}

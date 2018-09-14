@@ -142,22 +142,43 @@ algo.main = {
 						'	<label for="공차">공차</label><input type="text" id="diff" value=""><br/>'+
 						'	<button id="bt">결과보기</button>'+
 						'	<h4 id="rs">결과보기</h4></div>';*/
+					
 					$('<div/>').attr({id:'ques'}).appendTo($t__r);
 					$('<h4/>').html('시작값 x, 마지막값 y, 공차 d 인 등차수열의 합을 구하시오.').appendTo($('#ques'));
-					$('<label/>').html('시작값').appendTo($('#ques')); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
-					$('<input/>').attr({id:'start',type:'text'}).appendTo($('#ques'));
-					$('<label/>').html('마지막값').appendTo($('#ques'));
-					$('<input/>').attr({id:'end' , type:'text'}).appendTo($('#ques'));
-					$('<label/>').html('공차').appendTo($('#ques'));
-					$('<input/>').attr({id:'diff' , type:'text'}).appendTo($('#ques'));
+					//let arr = { html:['시작값','마지막값','공차'],id:['start','end','diff'] };
+					let arr = [{html:'시작값' , id:'start'}, {html:'마지막값', id:'end'}, {html:'공차', id:'diff'}];
+					
+					/*for(let i in arr){
+						$('<label/>').html(arr[i].html).appendTo($ques); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
+						$('<input/>').attr({id:arr[i].id,type:'text'}).appendTo($ques);
+						$('<br/>').appendTo($ques);
+					}*/
+					/*제 1안 fm
+					 	$.each( arr, ( i, json )=> {
+						$('<label/>').html(json.html).appendTo($ques); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
+						$('<input/>').attr({id:json.id,type:'text'}).appendTo($ques);
+						$('<br/>').appendTo($ques);
+					});
+					제 2안
+					 	$.each( arr, function() { //i 넣어도 되고 안해도 됨
+						$('<label/>').html(this.html).appendTo($ques); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
+						$('<input/>').attr({id:this.id,type:'text'}).appendTo($ques);
+						$('<br/>').appendTo($ques);
+					});
+					제 3안*/
+					$(arr).each(function(i){
+						$('<label/>').html(this.html).appendTo($('#ques')); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
+						$('<input/>').attr({id:this.id,type:'text'}).appendTo($('#ques'));
+						$('<br/>').appendTo($('#ques'));
+					});
 					$('<button/>').addClass('btn btn-primary').attr({type:'button'}).html('결과보기')
 						.appendTo($('#ques')).click(e=>{
-							$('#res').remove();
+							$('#h4').remove();
 							let a = ($.fn.nullChecker(
 									[$('#start').val(),$('#end').val(),$('#diff').val()]
 							))?'빈칸 채우세요':'완성';
+							let ans = "답: ";
 							if(a==='완성'){
-								let ans = "답: ";
 								let start = $('#start').val()*1;
 								let end = $('#end').val()*1;
 								let diff = $('#diff').val()*1;
@@ -167,10 +188,12 @@ algo.main = {
 									sum += i;
 									i = i + diff;
 								}
-								$('<h4/>')
-								.attr({id : 'res'})
-								.html(ans+sum).appendTo($('#ques'));	
+								ans = ans + sum;
+							}else{
+								ans="빈칸 채워주세요";
 							}
+							$('<h4/>').attr({id : 'h4'}).text(ans).appendTo($('#ques'));	
+							
 							
 						});
 					
