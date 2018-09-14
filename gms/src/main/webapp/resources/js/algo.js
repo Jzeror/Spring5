@@ -132,40 +132,14 @@ algo.main = {
 			let $t__r = $('#t__r');
 			$("<ur />").attr({id : 'side__menu'}).addClass('list-group').appendTo($t__l);
 			$('<li />').attr({id : 'arith'}).addClass('list-group-item').appendTo($('#side__menu'));
-			$('<a/>').attr({href : '#'}).html('등차수열의 합').appendTo($('#arith'))
-			.click(e=>{
-					$t__l.empty();
-			/*	$('#arith__seq').click(e=>{ //이벤트 주자
-					let ques = '<div id="ques"><h4> 시작값 x, 마지막값 y, 공차 d 인 등차수열의 합을 구하시오.</h4>'+
-						'	<label for="시작값">시작값</label><input type="text" id="start" value=""><br/>'+
-						'	<label for="마지막값">마지막값</label><input type="text" id="end" value=""><br/>'+
-						'	<label for="공차">공차</label><input type="text" id="diff" value=""><br/>'+
-						'	<button id="bt">결과보기</button>'+
-						'	<h4 id="rs">결과보기</h4></div>';*/
-					
+			$('<a/>').attr({href : '#'}).html('등차수열의 합').appendTo($('#arith'))			
+				.click(e=>{
+					$t__l.empty();					
 					$('<div/>').attr({id:'ques'}).appendTo($t__r);
 					$('<h4/>').html('시작값 x, 마지막값 y, 공차 d 인 등차수열의 합을 구하시오.').appendTo($('#ques'));
 					//let arr = { html:['시작값','마지막값','공차'],id:['start','end','diff'] };
 					let arr = [{html:'시작값' , id:'start'}, {html:'마지막값', id:'end'}, {html:'공차', id:'diff'}];
-					
-					/*for(let i in arr){
-						$('<label/>').html(arr[i].html).appendTo($ques); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
-						$('<input/>').attr({id:arr[i].id,type:'text'}).appendTo($ques);
-						$('<br/>').appendTo($ques);
-					}*/
-					/*제 1안 fm
-					 	$.each( arr, ( i, json )=> {
-						$('<label/>').html(json.html).appendTo($ques); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
-						$('<input/>').attr({id:json.id,type:'text'}).appendTo($ques);
-						$('<br/>').appendTo($ques);
-					});
-					제 2안
-					 	$.each( arr, function() { //i 넣어도 되고 안해도 됨
-						$('<label/>').html(this.html).appendTo($ques); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
-						$('<input/>').attr({id:this.id,type:'text'}).appendTo($ques);
-						$('<br/>').appendTo($ques);
-					});
-					제 3안*/
+				
 					$(arr).each(function(i){
 						$('<label/>').html(this.html).appendTo($('#ques')); //지금 상황에서는text랑 똑같은 의미이다. text써도 됨
 						$('<input/>').attr({id:this.id,type:'text'}).appendTo($('#ques'));
@@ -198,6 +172,19 @@ algo.main = {
 						});
 					
 			});
+			$('<br/>').appendTo($('#arith'));
+			$('<a/>').attr({href : '#'}).html('피보나치수열').appendTo($('#arith'))
+				.click(e=>{
+					$t__l.empty();		
+					
+				});
+			$('<br/>').appendTo($('#arith'));
+			$('<a/>').attr({href : '#'}).html('스위치수열').appendTo($('#arith'))
+				.click(e=>{
+					$t__l.empty();		
+					
+				});
+			
 		}
 };
 algo.series = {
