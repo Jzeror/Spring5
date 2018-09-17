@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 $.prototype.nullChecker = x=>{
 			let flag = false;
 			let i = 0;
@@ -18,8 +18,4 @@ $.prototype.zeroChecker = x=>{
 		}
 	}
 	return flag;
-}
-$.prototype.label = (x,y)=>{
-	
-	return label;
 }

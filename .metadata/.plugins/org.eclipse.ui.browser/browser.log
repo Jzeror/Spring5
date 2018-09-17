@@ -41,3 +41,9 @@
 9월 11, 2018 09:49:33.70 [4788:920:0911/094933.701:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
 9월 11, 2018 09:49:33.71 [4788:920:0911/094933.701:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
 9월 11, 2018 09:49:33.71 [4788:920:0911/094933.701:ERROR:in_progress_cache_impl.cc(191)] Cache is not initialized, cannot RetrieveEntry.
+
+9월 17, 2018 09:08:04.46 NEW SESSION
+9월 17, 2018 09:08:04.46 Unable to read VR Path Registry from C:\Users\1027\AppData\Local\openvr\openvrpaths.vrpath
+9월 17, 2018 11:37:28.44 [1648:3532:0917/113728.449:ERROR:ssl_client_socket_impl.cc(996)] handshake failed; returned -1, SSL error code 1, net_error -101
+9월 17, 2018 12:52:27.11 [1648:3532:0917/125227.114:ERROR:ssl_client_socket_impl.cc(996)] handshake failed; returned -1, SSL error code 1, net_error -101
+9월 17, 2018 15:05:06.77 [1648:4848:0917/150506.772:ERROR:textfield.cc(1754)] NOT IMPLEMENTED
