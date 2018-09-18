@@ -23,7 +23,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script src="${context}/resources/js/custom.js"></script>
 	<script src="${context}/resources/js/jquery.easing.min.js"></script>
-	<script src="${context}/resources/js/algo.js"></script>
+	<script src="${context}/resources/js/app.js"></script>
 </head>
 <body>
 <div id="wrapper">

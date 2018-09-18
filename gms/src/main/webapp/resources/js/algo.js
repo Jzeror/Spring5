@@ -1,3 +1,4 @@
+"use strict";
 var algo = algo || {};
 algo = {
 		init : x=>{
@@ -276,16 +277,15 @@ algo.math = {
 algo.appl ={
 		
 };
-
 algo.router = {
-	onCreate :x=>{
-		$.getScript(x+'/resources/js/router.js',
-				()=>{    //이게 온클릭?
-					$.extend(new Session(x));
-					$.getScript($.ctx()+'/resources/js/util.js').done(x=>{console.log('실행');}).fail(x=>{console.log('실패')});
-					algo.main.onCreate();
-					//algo.main.onCreate(); util도 확장시켜야하니까 여기서 oncreate하지말고 다시 util을 부른다.
-				}
-			);
-	}
-};
+		init :x=>{
+			$.getScript(x+'/resources/js/router.js',
+					()=>{    //이게 온클릭?
+						$.extend(new Session(x));
+						$.getScript($.ctx()+'/resources/js/util.js').done(x=>{console.log('실행');}).fail(x=>{console.log('실패')});
+						algo.main.init;
+						//algo.main.onCreate(); util도 확장시켜야하니까 여기서 oncreate하지말고 다시 util을 부른다.
+					}
+				);
+		}
+	};
