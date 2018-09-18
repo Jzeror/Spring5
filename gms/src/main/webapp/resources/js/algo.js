@@ -206,18 +206,33 @@ algo.main=(()=>{
 			$('#t__l').empty();
 			$.getScript(compo,()=>{
 				ui.ul({len : 3, id:'menu'}).appendTo($t__l);
-				ui.anchor({txt:'화페문제'}).appendTo($('#menu-0')).click(x=>{
+				ui.anchor({txt:'화페문제'}).appendTo($('#menu-0')).on('click',function(){
 					$('<h6>화폐문제</h6>').appendTo($t__r);
 					ui.input({
-							id : 'money',
-							type : 'text',
-							val : ''
-					})
-					.prepend(ui.label({
-						id : 'money-lb',
+						id : 'money',
 						txt : '입금액'
-					}))
+					})
 					.appendTo($t__r);
+					ui.btn({clazz:'primary', txt:'전 송'})
+					.appendTo($t__r).click(x=>{
+						alert("화폐금액 :::"+$('#money').val());
+						$.ajax({
+							url : ctx+'/algo/money',
+							method : 'post',
+							contentType : 'application/json',
+							data : JSON.stringify({"money" : $('#money').val()}),
+							success : d=>{
+								alert('AJAX 성공이다'+d.test);
+							},
+							error : (m1,m2,m3) => {
+								alert('에러발생'+m1);
+								alert('에러발생'+m2);
+								alert('에러발생'+m3);
+							}
+						});
+						
+					})
+					;
 					
 				})
 				;

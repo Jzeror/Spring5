@@ -30,7 +30,7 @@
 	
 </div>
 <script>
-algo.init('${context}');
+app.init('${context}');
 </script>
 </body>
 </html>

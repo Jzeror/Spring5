@@ -78,7 +78,7 @@ public class MemberCtrl {
 			view = (f.test(param)) ? "login_success" : "login_fail";
 		}
 		mbr = (Predicate.isEqual("login_success").test(view)) ? mbrMapper.selectOne(param) : new Member();
-		Util.Log.accept(mbr.toString());
+		Util.log.accept(mbr.toString());
 		return view;
 
 	}

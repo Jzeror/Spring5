@@ -1,6 +1,7 @@
 "use strict" //에러가 나면 보여주겠다.
 var app = app || {};
 var user = user || {};
+
 app = {
 		init : x=>{
 			console.log('step 1');
