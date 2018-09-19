@@ -165,7 +165,7 @@ app.permission = (()=>{
 					url:$.ctx()+'/mbr/add',
 					method:'post',
 					contentType:'application/json',
-					data : JSON.stringify({
+					data : JSON.stringify({ 
 						memId:$('#memIdAdd').val(),
 						password:$('#pwAdd').val(),
 						name:$('#nameAdd').val(),
