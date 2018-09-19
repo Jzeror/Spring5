@@ -3,24 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gms.web.mbr.MemberMapper">
-	<select id="selectOne" resultType="com.gms.web.mbr.Member">
+	<select id="get" resultType="com.gms.web.mbr.Member">
 	    SELECT memId, teamId, name, ssn, roll, password, age, gender 
 	    FROM MEMBER 
-	    WHERE memId LIKE #{memId} AND password LIKE #{password}
+	    <where>
+	    	<if test=" memId != null and memId != '' ">
+	    		memId LIKE #{memId}
+	    	</if>
+	    	<if test=" password != null and password != '' ">
+	    		AND password LIKE #{password}
+	    	</if>
+	    </where>
 	</select>
-	<select id="login" resultType="boolean">
-	    SELECT memId, teamId, name, ssn, roll, password, age, gender 
-	    FROM MEMBER 
-	    WHERE memId LIKE #{memId} AND password LIKE #{password}
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM MEMBER
+		<where>
+			<if test=" memId != null and memId != '' ">
+				memId LIKE #{memId}
+			</if>
+		</where>
 	</select>
-	<select id="exist" resultType="string">
-	    SELECT memId FROM MEMBER WHERE memId LIKE #{memId}
-	</select>
-	<insert	id="insert" flushCache="true">
+	<insert	id="post" flushCache="true">
 	  	INSERT INTO MEMBER ( memId, teamId, name, ssn, roll, password, age, gender, subject)
 	  	VALUES (#{memId}, #{teamId}, #{name}, #{ssn}, #{roll}, #{password}, #{age}, #{gender}, '')
   	</insert>
-	<update id="update">
+	<update id="put">
 		UPDATE MEMBER SET teamId = #{teamId}, roll = #{roll} 
 		<if test="password != ''">
 		, password = #{password}

@@ -93,28 +93,7 @@ app.main = (()=>{
 	};
 	var setContentView =()=>{
         //// 자스 Promise 비동기 로직 다루기
-        $.when(
-            $.getScript(header),
-            $.getScript(content),
-            $.getScript(footer),
-            $.Deferred(y=>{
-                $(y.resolve);
-            })
-        ).done(z=>{
-        	w.html(
-        			headerUI()
-        			+contentUI()
-        			+footerUI()
-        			);
-        	$('#login_btn').click(e=>{
-                app.permission.login();
-        	});
-        	/*$('#board').click(e=>{
-                app.board.init();
-        	});*/
-        }).fail(x=>{
-        	console.log('로드실패');
-        });
+	      app.router.home();
 	};
 	return{init:init};
 })();
@@ -130,15 +109,92 @@ app.main = (()=>{
 })();*/
 app.permission = (()=>{
 	var login =()=>{
-		alert('Login');
-		$('#content').empty();
+		//$('#content').empty(); 밑에 html 쓰고 있으니까 안써도 됨.
 		$.getScript($.script()+'/login.js',
 				()=>{
 					$('#content').html(loginUI());
+					$('#login_form_btn').click(e=>{
+						$.ajax({
+							url : $.ctx()+'/mbr/login',
+							method : 'post',
+							contentType : 'application/json',
+							data : JSON.stringify({memId:$('#memIdLog').val(),password:$('#memPassLog').val()}),
+							success : d=>{
+								alert('ID 판단 ::: '+d.ID);
+								alert('PW 판단 ::: '+d.PW);
+								alert('MBR 판단 ::: '+d.MBR);
+								if(d.ID==="WRONG"){
+									
+								}else if(d.PW==="WRONG"){
+									
+								}else{
+									$.getScript($.script()+'/content.js',()=>{
+										$('#content').html(contentUI());
+										$('#mySidenav').empty();
+										$('<a />').attr("href","javascript:void(0)").addClass("closebtn").html('&times;').appendTo($('#mySidenav'))
+										.click(e=>{ });
+										$('<a />').attr("id","logout_btn").html('Logout').appendTo($('#mySidenav'))
+										.click(e=>{	
+											app.router.home();
+										});
+										$('<a />').attr("id","board_write").html('게시물쓰기').appendTo($('#mySidenav'))
+										.click(e=>{	});
+										$('<a />').attr("id","board_list").html('게시물목록').appendTo($('#mySidenav'))
+										.click(e=>{	});
+									});
+									
+								}
+							},
+							error : (m1,m2,m3)=>{
+								
+							}
+						});
+					});					
 				}
 		);
 	};
-	return {login : login};
+	var add=()=>{
+		$.getScript($.script()+'/add.js',()=>{
+			$('#content').html(addUI());
+			$('#add_form_btn').click(e=>{
+				var checkArr = [];
+				$('input[name="subjectSelector"]:checked').each(function(i){
+					checkArr.push($(this).val());
+				});
+				$.ajax({
+					url:$.ctx()+'/mbr/add',
+					method:'post',
+					contentType:'application/json',
+					data : JSON.stringify({
+						memId:$('#memIdAdd').val(),
+						password:$('#pwAdd').val(),
+						name:$('#nameAdd').val(),
+						ssn:$('#ssnAdd').val(),
+						teamId:$('input[name=teamIdSelector]:checked').val(),
+						roll:$('#rollAdd').val()
+						//,subject: JSON.stringify(checkArr)
+					}),
+					success :d=>{
+						alert("ID 체크 ::: "+d.ID);
+						alert("PW 체크 ::: "+d.PW);
+						alert("MBR 체크 ::: "+d.MBR.memId);
+						if(d.ID==="WRONG"){
+							
+						}else if(d.PW==="WRONG"){
+							
+						}else{
+							
+						}
+					},
+					error:(m1,m2,m3)=>{
+						
+					}
+				});
+			});
+		});
+	};
+	return {login : login,
+		add : add};
 })();
 app.router = {
 	init :x=>{
@@ -150,5 +206,32 @@ app.router = {
 					//algo.main.onCreate(); util도 확장시켜야하니까 여기서 oncreate하지말고 다시 util을 부른다.
 				}
 			);
+	},
+	home : ()=>{
+		$.when(
+	            $.getScript($.script()+'/header.js'),
+	            $.getScript($.script()+'/footer.js'),
+	            $.getScript($.script()+'/content.js'),
+	            $.Deferred(y=>{
+	                $(y.resolve);
+	            })
+	        ).done(z=>{
+	        	$('#wrapper').html(
+	        			headerUI()
+	        			+contentUI()
+	        			+footerUI()
+	        	);
+	        	$('#add_btn').click(e=>{
+	        		app.permission.add();
+	        	});
+	        	$('#login_btn').click(e=>{
+	                app.permission.login();
+	        	});
+	        	/*$('#board').click(e=>{
+	                app.board.init();
+	        	});*/
+	        }).fail(x=>{
+	        	console.log('로드실패');
+	        });
 	}
 };

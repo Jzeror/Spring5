@@ -1,5 +1,8 @@
 package com.gms.web.mbr;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import javax.servlet.http.HttpSession;
@@ -9,25 +12,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gms.web.cmm.Util;
+import com.gms.web.cmm.Util2;
 
 @RestController
-@RequestMapping("/member")
+@RequestMapping("/mbr")
 public class MemberCtrl {
 	static final Logger logger = LoggerFactory.getLogger(MemberCtrl.class);
-	@Autowired	MemberService memberService;
 	@Autowired	MemberMapper mbrMapper;
 	@Autowired	Member mbr;
-
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String add(@ModelAttribute("member") Member member) {
-		logger.info("Member Controller :: add()");
-		memberService.add(member);
-		return "";
+	@Autowired Util2 util;
+	@PostMapping("/add")
+	public @ResponseBody Map<String, Member> add(@RequestBody Member member ) {
+		Map<String, Member> rmap = new HashMap<>();
+		Util.log.accept("들어온 값은 두구두구 ::: "+member.getMemId());
+		Util.log.accept("들어온 값은 두구두구 ::: "+member.getTeamId());
+		Util.log.accept("들어온 값은 두구두구 ::: "+member.getSubject());
+		return rmap;
 	}
 
 	/*
@@ -56,8 +63,6 @@ public class MemberCtrl {
 	public String modify(Model model, @ModelAttribute("member") Member member) {
 		logger.info("Member Controller :: modify()");
 		member.setMemId(((Member) model.asMap().get("user")).getMemId());
-		memberService.modify(member);
-		model.addAttribute("user", memberService.retrieve((Member) model.asMap().get("user")));
 		return "";
 	}
 
@@ -65,29 +70,33 @@ public class MemberCtrl {
 	public String remove(@ModelAttribute Member member, Model model) {
 		logger.info("Member Controller :: remove()");
 		member.setMemId(((Member) model.asMap().get("user")).getMemId()); 
-		memberService.remove(member);
 		return "redirect:/";
 	}
 
 	@PostMapping("/login")
-	public String login(Model model, @ModelAttribute("member") Member param) {
-		logger.info("Member Controller :: login()");
-		String view = "";
-		if (Util.notEmpty.test(mbrMapper.exist(param.getMemId()))) {
-			Predicate<Member> f = s -> mbrMapper.login(s); //얘는 한번만 쓰는 거라 util에 안넣을 것.
-			view = (f.test(param)) ? "login_success" : "login_fail";
+	public @ResponseBody Map<String,Object> login(@RequestBody Member param) {
+		Map<String, Object> rmap = new HashMap<>();
+		String pwValid = "WRONG";
+		String idValid = "WORNG";
+		if (mbrMapper.count(param)!=0) {
+			idValid = "CORRECT";
+			Function<Member,Member> f = (t)->{
+				return mbrMapper.get(t);
+			}; //지금 얘는 토스만 하고 있다 안써도 무방.
+			mbr = f.apply(param);
+			pwValid= (mbr != null)?"CORRECT":"WRONG";
+			mbr = (mbr != null) ?mbr:new Member();
 		}
-		mbr = (Predicate.isEqual("login_success").test(view)) ? mbrMapper.selectOne(param) : new Member();
-		Util.log.accept(mbr.toString());
-		return view;
-
+		rmap.put("ID", idValid);
+		rmap.put("PW", pwValid);
+		rmap.put("MBR", mbr);
+		return rmap;
 	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		logger.info("Member Controller :: logout()");
 		session.removeAttribute("user");
-
 		return "redirect:/";
 	}
 }

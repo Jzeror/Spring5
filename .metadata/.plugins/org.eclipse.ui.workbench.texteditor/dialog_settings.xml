@@ -2,14 +2,19 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="수열" key="selection"/>
+		<item value="board" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="수열"/>
+			<item value="board"/>
+			<item value="boa"/>
+			<item value="header"/>
 			<item value="ctx"/>
+			<item value="jackson"/>
+			<item value="input__"/>
+			<item value="수열"/>
 			<item value="anch"/>
 			<item value="res"/>
 			<item value="side__menu"/>
@@ -18,11 +23,6 @@
 			<item value="center"/>
 			<item value="console"/>
 			<item value="app"/>
-			<item value="setcon"/>
-			<item value="jac"/>
-			<item value="tiles"/>
-			<item value="&lt;!-- jackson --&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-core&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-annotations&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.module&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-module-jaxb-annotations&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.fasterxml.jackson.jaxrs&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-jaxrs-json-provider&lt;/artifactId&gt;&#x0A;&lt;version&gt;${jackson-version}&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jaxb-impl&lt;/artifactId&gt;&#x0A;&lt;version&gt;2.2.2&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;org.codehaus.jackson&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;jackson-mapper-asl&lt;/artifactId&gt;&#x0A;&lt;version&gt;1.9.2&lt;/version&gt;&#x0A;&lt;/dependency&gt;&#x0A;&lt;!-- Json --&gt;&#x0A;&lt;dependency&gt;&#x0A;&lt;groupId&gt;net.sf.json-lib&lt;/groupId&gt;&#x0A;&lt;artifactId&gt;json-lib&lt;/artifactId&gt;&#x0A;&lt;version&gt;2.4&lt;/version&gt;&#x0A;&lt;classifier&gt;jdk15&lt;/classifier&gt;&#x0A;&lt;/dependency&gt;&#x0A;&#x0A;&#x0A;&#x0A;Collapse &#x0A;Message Input&#x0A;&#x0A;&#x0A;Message #general"/>
-			<item value="tiles\"/>
 		</list>
 		<list key="replacehistory">
 			<item value="t__l"/>

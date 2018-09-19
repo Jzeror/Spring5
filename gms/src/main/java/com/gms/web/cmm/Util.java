@@ -12,5 +12,5 @@ public class Util {
 	public static Function<String, Integer> convInt = Integer::parseInt;
 	public static Predicate<String> empty = s -> s.equals("");
 	public static Predicate<String> notEmpty = empty.negate();
-	public static Function<HttpServletRequest, String> ctx = HttpServletRequest::getContextPath;
+	public static Function<HttpServletRequest, String> ctx = HttpServletRequest::getContextPath;	
 }
