@@ -1,73 +1,6 @@
 "use strict" //에러가 나면 보여주겠다.
 var app = app || {};
 var user = user || {};
-
-/*app=(()=>{
-	var init = x=>{
-		console.log('step 1');
-		app.session.context(x);	
-		app.onCreate();
-	};
-	var onCreate = ()=>{
-		console.log('step 3');
-		app.setContentView();
-		$('#login_btn').click(()=>{
-			location.href = app.x()+"/move/auth/member/login";
-		});
-		$('#add_btn').click(()=>{
-			location.href = app.x()+"/move/auth/member/add";
-		});
-		$('#login_form_btn').click(()=>{
-			$('#login-form')
-				.attr({ action : app.x()+"/member/login",
-						method : "POST"})
-				.submit();
-		});
-		$('#add_form_btn').click(()=>{
-			
-			var form = document.getElementById('join-form');
-			form.action = app.x() + "/member/add";
-			form.method = "post";	
-			form.submit();
-			
-			$('#join-form')
-				.attr({	action : app.x() + "/member/add",
-						method : "POST"	})
-				.submit(); // 메소드체이닝
-		});
-		$('#logout_btn').click(()=>{
-			location.href = app.x()+"/member/logout";
-		});
-		$('#retrieve_move').click(()=>{
-			location.href = app.x()+"/member/retrieve/"+app.session.getItem('memId');
-		});
-		$('#update_move').click(()=>{
-			location.href = app.x()+"/move/login/member/modify";
-		});
-		$('#delete_move').click(()=>{
-			location.href = app.x()+"/move/login/member/remove";
-		});
-		$('#update_btn').click(()=>{
-			let id = $('<input type="hidden" name="memId" value="'+$('#memId').text()+'"/>');
-			$('#update-form')
-				.append(id)
-				.attr({ action : app.x() + "/member/modify",
-						method : "POST"})
-				.submit();
-		});
-		$('#delete_btn').click(()=>{
-			let id = $('<input type="hidden" name="memId" value="'+$('#memId').text()+'"/>');
-			$('#update-form')
-				.append(id)
-				.attr({ action : app.x() + "/member/remove",
-						method : "POST"})
-				.submit();
-		});
-	};
-	var setContentView = ()=>{
-		console.log('step 4'+app.j());
-	}
-})();*/
 app = (()=>{
 	var init =x=>{
 		app.router.init(x);
@@ -109,58 +42,87 @@ app.main = (()=>{
 })();*/
 app.permission = (()=>{
 	var login =()=>{
+		$.getScript($.script()+'/nav.js',()=>{
+			$('#header').html(navUI);
 		//$('#content').empty(); 밑에 html 쓰고 있으니까 안써도 됨.
-		$.getScript($.script()+'/login.js',
-				()=>{
-					$('#content').html(loginUI());
-					$('#login_form_btn').click(e=>{
-						$.ajax({
-							url : $.ctx()+'/mbr/login',
-							method : 'post',
-							contentType : 'application/json',
-							data : JSON.stringify({memId:$('#memIdLog').val(),password:$('#memPassLog').val()}),
-							success : d=>{
-								alert('ID 판단 ::: '+d.ID);
-								alert('PW 판단 ::: '+d.PW);
-								alert('MBR 판단 ::: '+d.MBR);
-								if(d.ID==="WRONG"){
-									
-								}else if(d.PW==="WRONG"){
-									
-								}else{
-									$.getScript($.script()+'/content.js',()=>{
-										$('#content').html(contentUI());
-										$('#mySidenav').empty();
-										$('<a />').attr("href","javascript:void(0)").addClass("closebtn").html('&times;').appendTo($('#mySidenav'))
-										.click(e=>{ });
-										$('<a />').attr("id","logout_btn").html('Logout').appendTo($('#mySidenav'))
-										.click(e=>{	
-											app.router.home();
+		$.getScript($.script()+'/compo.js',()=>{
+			$.getScript($.script()+'/login.js',
+					()=>{
+						$('#content').html(loginUI());
+						ui.anchor({id:'login_form_btn', txt:'Login'})
+							.css({'width':'300px'})
+							.addClass('btn btn-primary')
+							.appendTo($('#login-form'))
+						//$('<input/>').attr({id:'login_form_btn', type:'button', value:'LOGIN'}).appendTo($('#login-form'))
+						.click(e=>{
+							$.ajax({
+								url : $.ctx()+'/mbr/login',
+								method : 'post',
+								contentType : 'application/json',
+								data : JSON.stringify({memId:$('#memIdLog').val(),password:$('#memPassLog').val()}),
+								success : d=>{
+									alert('ID 판단 ::: '+d.ID);
+									alert('PW 판단 ::: '+d.PW);
+									alert('MBR 판단 ::: '+d.MBR);
+									if(d.ID==="WRONG"){
+										
+									}else if(d.PW==="WRONG"){
+										
+									}else{
+										$.getScript($.script()+'/content.js',()=>{
+											$('#content').html(contentUI());
+											$('#mySidenav').empty();
+											$('<a />').attr("href","javascript:void(0)").addClass("closebtn").html('&times;').appendTo($('#mySidenav'))
+											.click(e=>{ });
+											$('<a />').attr("id","logout_btn").html('Logout').appendTo($('#mySidenav'))
+											.click(e=>{	
+												app.router.home();
+											});
+											$('<a />').attr("id","board_write").html('게시물쓰기').appendTo($('#mySidenav'))
+											.click(e=>{	});
+											$('<a />').attr("id","board_list").html('게시물목록').appendTo($('#mySidenav'))
+											.click(e=>{	});
 										});
-										$('<a />').attr("id","board_write").html('게시물쓰기').appendTo($('#mySidenav'))
-										.click(e=>{	});
-										$('<a />').attr("id","board_list").html('게시물목록').appendTo($('#mySidenav'))
-										.click(e=>{	});
-									});
+										
+									}
+								},
+								error : (m1,m2,m3)=>{
 									
 								}
-							},
-							error : (m1,m2,m3)=>{
-								
-							}
-						});
-					});					
-				}
-		);
+							});
+						});					
+					}
+			);
+		});
+	});
+		
 	};
 	var add=()=>{
-		$.getScript($.script()+'/add.js',()=>{
-			$('#content').html(addUI());
-			$('#add_form_btn').click(e=>{
-				var checkArr = [];
+		$.getScript($.script()+'/compo.js',()=>{
+			$.getScript($.script()+'/add.js',()=>{
+				$('#content').html(addUI());
+				//$('#add_form_btn').click(e=>{
+				/*$("[name=subjectSelector]")
+				.change(function (){
+					alert($(this).val());
+//이벤트 줄때 아주좋음	});*/
+				/*let checkArr = [];
 				$('input[name="subjectSelector"]:checked').each(function(i){
 					checkArr.push($(this).val());
-				});
+				});*/
+				ui.anchor({id:'add_form_btn',txt:'회원가입'})
+				.css({'width':'300px'}).addClass('btn btn-primary')
+				.appendTo($('#add-box')).click(e=>{
+					e.preventDefault();
+					var arr='';//new Array도 맞음.
+					var sub =$("[name=subjectSelector]");
+					let i;
+					for (i of sub){
+						if(i.checked){
+							alert(i.value);
+							arr+=i.value+",";
+						}
+					}
 				$.ajax({
 					url:$.ctx()+'/mbr/add',
 					method:'post',
@@ -171,8 +133,8 @@ app.permission = (()=>{
 						name:$('#nameAdd').val(),
 						ssn:$('#ssnAdd').val(),
 						teamId:$('input[name=teamIdSelector]:checked').val(),
-						roll:$('#rollAdd').val()
-						//,subject: JSON.stringify(checkArr)
+						roll:$('#rollAdd').val(),
+						subject: arr
 					}),
 					success :d=>{
 						alert("ID 체크 ::: "+d.ID);
@@ -192,6 +154,7 @@ app.permission = (()=>{
 				});
 			});
 		});
+	});
 	};
 	return {login : login,
 		add : add};
@@ -221,7 +184,7 @@ app.router = {
 	        			+contentUI()
 	        			+footerUI()
 	        	);
-	        	$('#add_btn').click(e=>{
+	        	$('#add_btn').on('click',e=>{ //이게 오리지날. 내식이가 바꾼게 편해서 그걸 많이 씀.
 	        		app.permission.add();
 	        	});
 	        	$('#login_btn').click(e=>{

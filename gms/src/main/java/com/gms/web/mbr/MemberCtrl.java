@@ -29,11 +29,13 @@ public class MemberCtrl {
 	@Autowired	Member mbr;
 	@Autowired Util2 util;
 	@PostMapping("/add")
-	public @ResponseBody Map<String, Member> add(@RequestBody Member member ) {
+	public @ResponseBody Map<String, Member> add(@RequestBody Member prm ) {
 		Map<String, Member> rmap = new HashMap<>();
-		Util.log.accept("들어온 값은 두구두구 ::: "+member.getMemId());
-		Util.log.accept("들어온 값은 두구두구 ::: "+member.getTeamId());
-		Util.log.accept("들어온 값은 두구두구 ::: "+member.getSubject());
+		Util.log.accept("들어온 값은 두구두구 ::: "+prm.getSubject().split(",")[0]);
+		mbr = prm;
+		if (mbrMapper.count(prm)==0) {
+			
+		}
 		return rmap;
 	}
 

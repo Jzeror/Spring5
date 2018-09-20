@@ -2,29 +2,32 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="board" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="board"/>
-			<item value="boa"/>
+			<item value="vo"/>
+			<item value="Article"/>
+			<item value="Aticle"/>
+			<item value="ReplyV"/>
+			<item value="Reply"/>
+			<item value="ReplyVO"/>
+			<item value="Member"/>
+			<item value="content"/>
+			<item value="-nav"/>
+			<item value="#content"/>
+			<item value="bg"/>
+			<item value="630"/>
+			<item value="container"/>
 			<item value="header"/>
-			<item value="ctx"/>
-			<item value="jackson"/>
-			<item value="input__"/>
-			<item value="수열"/>
-			<item value="anch"/>
-			<item value="res"/>
-			<item value="side__menu"/>
-			<item value="t__r"/>
-			<item value="t__1"/>
-			<item value="center"/>
-			<item value="console"/>
-			<item value="app"/>
+			<item value="an"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Board"/>
+			<item value="Reply"/>
+			<item value="Subject"/>
 			<item value="t__l"/>
 			<item value="algo"/>
 			<item value="gms"/>
@@ -34,7 +37,7 @@
 		<item value="288" key="DIALOG_WIDTH"/>
 		<item value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕" key="DIALOG_FONT_NAME"/>
 		<item value="390" key="DIALOG_HEIGHT"/>
-		<item value="939" key="DIALOG_X_ORIGIN"/>
-		<item value="294" key="DIALOG_Y_ORIGIN"/>
+		<item value="797" key="DIALOG_X_ORIGIN"/>
+		<item value="413" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

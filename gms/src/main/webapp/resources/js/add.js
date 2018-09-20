@@ -1,6 +1,6 @@
 function addUI(){
 	return '<div id="add-box">'
-	+'  <form id="join-form">'
+	//+'  <form id="join-form">'
 	+'    <h3>JOIN PAGE</h3>'
 	+'    ID : <input type="text" id="memIdAdd" name="memId" required/><br>'
 	+'    PW : <input type="text" id="pwAdd" name="password" required/><br>'
@@ -28,7 +28,7 @@ function addUI(){
 	+'    <input type="checkbox" name="subjectSelector" value="linux"/>Linux'
 	+'    <input type="checkbox" name="subjectSelector" value="html"/>HTML'
 	+'    <input type="checkbox" name="subjectSelector" value="spring"/>Spring<br>'
-	+'    <input id="add_form_btn" type="button" value="JOIN" />'
-	+'  </form>'
+//	+'    <input id="add_form_btn" type="button" value="JOIN" />'
+//	+'  </form>'
 	+'</div>';
 }

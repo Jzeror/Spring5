@@ -1,9 +1,10 @@
 "use strict";
 var ui = {
 		div : x=>{return $('<div />').attr(x);},
-		anchor : x=>{return $('<a/>').attr({href : '#'}).html(x.txt); }
+		anchor : x=>{ //ui.anchor({id:'TEST',txt:'TEST'});
+			return $('<a/>').attr({href : '#',id:x.id}).html(x.txt); }
 		,
-		ul : x =>{
+		ul : x =>{ //ui.ul({id:'' , len:''});
 			let y = $('<ul/>');
 			for(var i=0 ; i<x.len;i++){
 				$('<li/>').attr({

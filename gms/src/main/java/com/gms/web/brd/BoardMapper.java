@@ -7,17 +7,17 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BoardMapper {
-	public void insert(Article p);
+	public void insert(Board p);
 	public List<?> selectList(Map<?, ?> p);
 	public List<?> selectSome(Map<?, ?> p);
-	public Article selectOne(Article p);
+	public Board selectOne(Board p);
 	public int count(Map<?, ?> p);
-	public void update(Article p);
-	public void delete(Article p);
+	public void update(Board p);
+	public void delete(Board p);
 	
-	public Article listPage();
-	public Article listCriteria();
+	public Board listPage();
+	public Board listCriteria();
 	public int countPaging();
-	public Article listSearch();
+	public Board listSearch();
 	public int listSearchCount();
 }

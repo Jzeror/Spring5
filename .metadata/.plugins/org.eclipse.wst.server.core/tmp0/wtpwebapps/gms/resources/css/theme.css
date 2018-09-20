@@ -34,9 +34,18 @@ table {
     background-size: cover;
     min-height: 630px;
 }
+#banner-nav{
+    background: url(../img/taetae2.jpg) no-repeat center top;
+    background-size: cover;
+    min-height: 106px;
+}
 .bg-color{
     background-color: RGBA(0, 0, 0, 0.61);
     min-height: 630px;
+}
+.bg-color-nav{
+    background-color: RGBA(0, 0, 0, 0.61);
+    min-height: 106px;
 }
 #banner h2{
     font-family:'Hanna','Satisfy', sans-serif;
@@ -300,6 +309,9 @@ table {
 .content-holder address strong {
     color: #FFB03B;
     padding: 10px 0px;
+}
+#content{
+	min-height: 500px;
 }
 .details-text p {
     color: #E8E8E8;

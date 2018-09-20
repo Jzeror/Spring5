@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @RequestMapping("/board")
 public class BoardCtrl {
 	static final Logger logger = LoggerFactory.getLogger(BoardCtrl.class);
-	@Autowired Article article;
+	@Autowired Board article;
 	@Autowired BoardService boardService;
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(@ModelAttribute("article") Article p) {
+	public String add(@ModelAttribute("article") Board p) {
 		logger.info("add()");
 		boardService.add(p);
 		return "";
@@ -43,20 +43,20 @@ public class BoardCtrl {
 */
 	@RequestMapping("/retrieve/{id}")
 	public String retrieve(Model model, @PathVariable String id) {
-		Article p = new Article();
-		p.setBno(id);
+		Board p = new Board();
+		p.setBno(Integer.parseInt(id));
 		model.addAttribute("user", boardService.retrieve(p));
 		return "";
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public String modify(Model model, @ModelAttribute("article") Article p) {
+	public String modify(Model model, @ModelAttribute("article") Board p) {
 		logger.info("modify()");
 		boardService.modify(p);
 		model.addAttribute("user", boardService.retrieve(p));
 		return "";
 	}
 	@RequestMapping("/remove")
-	public String remove(@ModelAttribute("article") Article p) {
+	public String remove(@ModelAttribute("article") Board p) {
 		logger.info("remove()");
 		boardService.remove(p);
 		return "redirect:/";
