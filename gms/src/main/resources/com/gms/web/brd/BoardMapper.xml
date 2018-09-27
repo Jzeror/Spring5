@@ -3,6 +3,41 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gms.web.brd.BoardMapper">
+	<select id="getAll" resultType="com.gms.web.brd.Board">
+	 SELECT *
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER(ORDER BY BNO DESC) AS NUM,
+                A.*
+            FROM
+                BOARD A
+        )B
+        WHERE B.NUM BETWEEN #{beginRow} AND #{endRow}
+        ORDER BY B.NUM
+	</select>
+	<select id="count" resultType="int">
+	SELECT COUNT(*) FROM board
+	</select>
+	
+<!-- 	SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
+ 
+FROM
+ 
+  (
+ 
+    SELECT *
+ 
+    FROM table
+ 
+    ORDER BY column1
+ 
+  ) t,
+ 
+  ( SELECT @RNUM := 0 ) R
+
+
+출처: http://lahuman.jabsiri.co.kr/73 [lahuman & jabsiri 노트] -->
+	
 <!-- 
 	<insert id="insert">
 		insert into tbl_board (title, content, writer)

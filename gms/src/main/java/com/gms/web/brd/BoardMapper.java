@@ -5,19 +5,15 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.gms.web.page.Pagination;
+
 @Repository
 public interface BoardMapper {
-	public void insert(Board p);
-	public List<?> selectList(Map<?, ?> p);
-	public List<?> selectSome(Map<?, ?> p);
-	public Board selectOne(Board p);
-	public int count(Map<?, ?> p);
-	public void update(Board p);
+	public void post(Board p);
+	public List<?> list(Map<?, ?> p);
+	public Board get(Board p);
+	public List<Board> getAll(Pagination p);
+	public Integer count(Map<?, ?> p);
+	public void put(Board p);
 	public void delete(Board p);
-	
-	public Board listPage();
-	public Board listCriteria();
-	public int countPaging();
-	public Board listSearch();
-	public int listSearchCount();
 }

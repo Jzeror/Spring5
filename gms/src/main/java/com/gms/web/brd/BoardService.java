@@ -7,11 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface BoardService {
-	public void add(Board p);
+	public void post(Board p);
 	public List<?> list(Map<?, ?> p);
-	public List<?> search(Map<?, ?> p);
-	public Board retrieve(Board p);
-	public int count(Map<?, ?> p);
-	public void modify(Board p);
-	public void remove(Board p);
+	public Board get(Map<?, ?> p);
+	public Integer count(Board p);
+	public void put(Board p);
+	public void delete(Board p);
 }

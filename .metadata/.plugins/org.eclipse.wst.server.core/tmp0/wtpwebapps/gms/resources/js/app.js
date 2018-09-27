@@ -30,16 +30,52 @@ app.main = (()=>{
 	};
 	return{init:init};
 })();
-/*app.board = (()=>{
+app.board = (()=>{
 	var w,header, footer, content, img, ctx,script,style,login ;
-	var init = ()=>{};
-	var onCreate = ()=>{};
+	var init =()=>{
+		script = $.script();
+		ctx = $.ctx();
+		img = $.img();
+		style = $.style();
+		w= $('#wrapper');
+		header = script+'/header.js';
+		content = script+'/content.js';
+		footer = script+'/footer.js'; 
+		login = script+'/login.js';
+		onCreate();
+	};
+	var onCreate = ()=>{
+		setContentView();
+	};
 	var setContentView=()=>{
-		alert('Board');
+		alert(ctx);
 		$('#content').empty();
+		$.getJSON(ctx+'/boards/1',d=>{
+			$.getScript($.script()+'/compo.js',()=>{
+				let x = {
+						type : 'default',
+						id : 'table',
+						head : '게시판',
+						body : '오픈 게시판',
+						list : ['No','제목','내용','글쓴이','작성일','조회수'],
+						clazz : 'table table-bordered'
+				};
+				(ui.tbl(x)).appendTo($('#content'));
+				$.each(d,(i,j)=>{
+					$('<tr />').append(
+					$('<td />').attr('width','5%').html(j.bno),
+					$('<td />').attr('width','10%').html(j.title),
+					$('<td />').attr('width','50%').html(j.content),
+					$('<td />').attr('width','10%').html(j.writer),
+					$('<td />').attr('width','10%').html(j.regdate),
+					$('<td />').attr('width','5%').html(j.viewcnt)
+					).appendTo($('tbody'));
+				});
+			});
+		});
 	};
 	return {init:init};
-})();*/
+})();
 app.permission = (()=>{
 	var login =()=>{
 		$.getScript($.script()+'/nav.js',()=>{
@@ -69,21 +105,21 @@ app.permission = (()=>{
 									}else if(d.PW==="WRONG"){
 										
 									}else{
-										$.getScript($.script()+'/content.js',()=>{
-											$('#content').html(contentUI());
-											$('#mySidenav').empty();
-											$('<a />').attr("href","javascript:void(0)").addClass("closebtn").html('&times;').appendTo($('#mySidenav'))
-											.click(e=>{ });
-											$('<a />').attr("id","logout_btn").html('Logout').appendTo($('#mySidenav'))
-											.click(e=>{	
-												app.router.home();
+										$.getScript($.script()+'/header.js',()=>{
+											$('#header').html(headerUI);
+											$.getScript($.script()+'/content.js',()=>{
+												$('#content').html(contentUI());
+												$('#mySidenav').empty();
+												$('<a />').attr("href","javascript:void(0)").addClass("closebtn").html('&times;').appendTo($('#mySidenav'))
+												.click(e=>{ });
+												$('<a />').attr("id","logout_btn").html('Logout').appendTo($('#mySidenav'))
+												.click(e=>{	
+													app.router.home();
+												});
+												$('<a />').attr("id","board").html('게시판').appendTo($('#mySidenav'))
+												.click(e=>{	});
 											});
-											$('<a />').attr("id","board_write").html('게시물쓰기').appendTo($('#mySidenav'))
-											.click(e=>{	});
-											$('<a />').attr("id","board_list").html('게시물목록').appendTo($('#mySidenav'))
-											.click(e=>{	});
 										});
-										
 									}
 								},
 								error : (m1,m2,m3)=>{
@@ -190,9 +226,9 @@ app.router = {
 	        	$('#login_btn').click(e=>{
 	                app.permission.login();
 	        	});
-	        	/*$('#board').click(e=>{
+	        	$('#board').click(e=>{
 	                app.board.init();
-	        	});*/
+	        	});
 	        }).fail(x=>{
 	        	console.log('로드실패');
 	        });

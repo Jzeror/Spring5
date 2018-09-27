@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="http://fonts.googleapis.com/earlyaccess/hanna.css">
 	<link rel="stylesheet" href="${context}/resources/css/theme.css">
 	<link rel="stylesheet" href="${context}/resources/css/font-awesome.min.css">
-	<link rel="stylesheet" href="${context}/resources/css/style.css">
+	<link rel="stylesheet" href="${context}/resources/css/style.css"> 
 	
 	<%-- <link rel="stylesheet" href="${context}/resources/board_resource/dist/css/skins/_all-skins.min.css"> --%>
 <%-- 	<link rel="stylesheet" href="${context}/resources/board_resource/dist/css/AdminLTE.min.css"> --%>
@@ -26,7 +26,7 @@
 	<script src="${context}/resources/js/app.js"></script>
 </head>
 <body>
-<div id="wrapper">
+<div id="wrapper"> 
 	
 </div>
 <script>

@@ -56,6 +56,36 @@ var ui = {
 			link(trans))
 			*******************************************************************/
 			return y;
+		},
+		tbl : x=>{
+/*<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Panel heading</div>
+  <div class="panel-body">
+    <p>...</p>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    ...
+  </table>
+</div>*/
+			let d = $('<div class="panel panel-'+x.type+'" />');
+			let ph = $('<div class="panel-heading" />');
+			let pb = $('<div class="panel-body" />');
+			let t = $('<table />');
+			let thead = $('<thead/>');
+			let tr = $('<tr/>');
+			ph.html(x.head).appendTo(d);
+			pb.html(x.body).appendTo(d);
+			t.addClass(x.clazz).appendTo(d);
+			tr.appendTo(thead);
+			$.each(x.list,(i,v)=>{
+				$('<th/>').html(v).appendTo(tr);
+			});
+			thead.appendTo(t);
+			$('<tbody/>').appendTo(t);
+			return d;
 		}
 }
 /*input : x=>{    이건 안된다 왜? test가 만들어지지가 않음.
