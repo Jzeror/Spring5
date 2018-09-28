@@ -48,31 +48,8 @@ app.board = (()=>{
 		setContentView();
 	};
 	var setContentView=()=>{
-		alert(ctx);
 		$('#content').empty();
-		$.getJSON(ctx+'/boards/1',d=>{
-			$.getScript($.script()+'/compo.js',()=>{
-				let x = {
-						type : 'default',
-						id : 'table',
-						head : '게시판',
-						body : '오픈 게시판',
-						list : ['No','제목','내용','글쓴이','작성일','조회수'],
-						clazz : 'table table-bordered'
-				};
-				(ui.tbl(x)).appendTo($('#content'));
-				$.each(d,(i,j)=>{
-					$('<tr />').append(
-					$('<td />').attr('width','5%').html(j.bno),
-					$('<td />').attr('width','10%').html(j.title),
-					$('<td />').attr('width','50%').html(j.content),
-					$('<td />').attr('width','10%').html(j.writer),
-					$('<td />').attr('width','10%').html(j.regdate),
-					$('<td />').attr('width','5%').html(j.viewcnt)
-					).appendTo($('tbody'));
-				});
-			});
-		});
+		app.service.boards();
 	};
 	return {init:init};
 })();
@@ -83,55 +60,56 @@ app.permission = (()=>{
 		//$('#content').empty(); 밑에 html 쓰고 있으니까 안써도 됨.
 		$.getScript($.script()+'/compo.js',()=>{
 			$.getScript($.script()+'/login.js',
-					()=>{
-						$('#content').html(loginUI());
-						ui.anchor({id:'login_form_btn', txt:'Login'})
-							.css({'width':'300px'})
-							.addClass('btn btn-primary')
-							.appendTo($('#login-form'))
-						//$('<input/>').attr({id:'login_form_btn', type:'button', value:'LOGIN'}).appendTo($('#login-form'))
-						.click(e=>{
-							$.ajax({
-								url : $.ctx()+'/mbr/login',
-								method : 'post',
-								contentType : 'application/json',
-								data : JSON.stringify({memId:$('#memIdLog').val(),password:$('#memPassLog').val()}),
-								success : d=>{
-									alert('ID 판단 ::: '+d.ID);
-									alert('PW 판단 ::: '+d.PW);
-									alert('MBR 판단 ::: '+d.MBR);
-									if(d.ID==="WRONG"){
-										
-									}else if(d.PW==="WRONG"){
-										
-									}else{
-										$.getScript($.script()+'/header.js',()=>{
-											$('#header').html(headerUI);
-											$.getScript($.script()+'/content.js',()=>{
-												$('#content').html(contentUI());
-												$('#mySidenav').empty();
-												$('<a />').attr("href","javascript:void(0)").addClass("closebtn").html('&times;').appendTo($('#mySidenav'))
-												.click(e=>{ });
-												$('<a />').attr("id","logout_btn").html('Logout').appendTo($('#mySidenav'))
-												.click(e=>{	
-													app.router.home();
-												});
-												$('<a />').attr("id","board").html('게시판').appendTo($('#mySidenav'))
-												.click(e=>{	});
+				()=>{
+					$('#content').html(loginUI());
+					ui.anchor({id:'login_form_btn', txt:'Login'})
+						.css({'width':'300px'})
+						.addClass('btn btn-primary')
+						.appendTo($('#login-form'))
+					//$('<input/>').attr({id:'login_form_btn', type:'button', value:'LOGIN'}).appendTo($('#login-form'))
+					.click(e=>{
+						$.ajax({
+							url : $.ctx()+'/mbr/login',
+							method : 'post',
+							contentType : 'application/json',
+							data : JSON.stringify({memId:$('#memIdLog').val(),password:$('#memPassLog').val()}),
+							success : d=>{
+								if(d.ID==="WRONG"){
+									alert('아이디를 확인해주세요.');
+								}else if(d.PW==="WRONG"){
+									alert('비밀번호를 확인해주세요.');
+								}else{
+									$.getScript($.script()+'/header.js',()=>{
+										$('#header').html(headerUI);
+										$.getScript($.script()+'/content.js',()=>{
+											$('#content').html(contentUI());
+											$('#mySidenav').empty();
+											$('<a />').attr("href","javascript:void(0)").addClass("closebtn").html('&times;').appendTo($('#mySidenav'))
+											.click(e=>{ });
+											$('<a />').attr("id","logout_btn").html('Logout').appendTo($('#mySidenav'))
+											.click(e=>{	
+												app.router.home();
+											});
+											$('<a />').attr("id","myBoard").html('게시판').appendTo($('#mySidenav'))
+											.click(e=>{
+												app.service.myBoard({
+													id:d.MBR.memId,
+													pageNo:'1'
+													});
 											});
 										});
-									}
-								},
-								error : (m1,m2,m3)=>{
-									
+									});
 								}
-							});
-						});					
-					}
-			);
+							},
+							error : (m1,m2,m3)=>{
+								
+							}
+						});
+					});					
+				}
+				);
+			});
 		});
-	});
-		
 	};
 	var add=()=>{
 		$.getScript($.script()+'/compo.js',()=>{
@@ -195,6 +173,92 @@ app.permission = (()=>{
 	return {login : login,
 		add : add};
 })();
+app.service = {
+		boards : x=>{
+			if(x==undefined)x='1';
+			$.getJSON($.ctx()+'/boards/'+x,d=>{
+				$.getScript($.script()+'/compo.js',()=>{
+					$('#content').empty();
+					let x = {
+							type : 'default',
+							id : 'table',
+							head : '게시판',
+							body : '오픈 게시판',
+							list : ['No','제목','내용','글쓴이','작성일','조회수'],
+							clazz : 'table table-bordered'
+					};
+					(ui.tbl(x)).appendTo($('#content'));
+					$.each(d.list,(i,j)=>{
+						$('<tr />').append(
+						$('<td />').attr('width','5%').html(j.bno),
+						$('<td />').attr('width','10%').html(j.title),
+						$('<td />').attr('width','50%').html(j.content),
+						$('<td />').attr('width','10%').html(j.writer),
+						$('<td />').attr('width','10%').html(j.regdate),
+						$('<td />').attr('width','5%').html(j.viewcnt)
+						).appendTo($('tbody'));
+					});
+					(ui.page()).appendTo($('#content'));
+					let ul = $('.pagination');
+					for(let i=d.page.beginPage ; i<=d.page.endPage ; i++){
+						let ac=(i==d.page.pageNumber)? "active" : ""; // 함수 안에 있기 때문에 cc를 쓰던 말던 성능 차이가 거의 없다.
+						$('<li />').addClass("page-item "+ac).append($('<a />').addClass("page-link").html(i)).appendTo(ul).click(e=>{
+							e.preventDefault();
+							app.service.boards(i);
+						});
+					}
+					let disp = (d.page.existPrev)? "": "disabled" ;
+					let disn = (d.page.existNext)? "": "disabled" ;
+					$('<li id="epo" />').addClass("page-item "+disp).append($("<span />").addClass("page-link").html("Previous")).prependTo(ul);
+					$('<li id="eno" />').addClass("page-item "+disn).append($("<span />").addClass("page-link").html("Next")).appendTo(ul);
+					if(d.page.existPrev){$('#epo').click(e=>{app.service.boards(parseInt(d.page.beginPage-1));});}
+					if(d.page.existNext){$('#eno').click(e=>{app.service.boards(parseInt(d.page.endPage+1));});}
+				});
+			});
+		},
+		myBoard : x=>{
+			//if(x==undefined)x='1';
+			$.getJSON($.ctx()+'/boards/'+x.id+'/'+x.pageNo,d=>{
+				$.getScript($.script()+'/compo.js',()=>{
+					$('#content').empty();
+					let x = {
+							type : 'default',
+							id : 'table',
+							head : '마이 게시판',
+							body : '사용자만 이용할 수 있는 개인 게시판',
+							list : ['No','제목','내용','글쓴이','작성일','조회수'],
+							clazz : 'table table-bordered'
+					};
+					(ui.tbl(x)).appendTo($('#content'));
+					$.each(d.list,(i,j)=>{
+						$('<tr />').append(
+						$('<td />').attr('width','5%').html(j.bno),
+						$('<td />').attr('width','10%').html(j.title),
+						$('<td />').attr('width','50%').html(j.content),
+						$('<td />').attr('width','10%').html(j.writer),
+						$('<td />').attr('width','10%').html(j.regdate),
+						$('<td />').attr('width','5%').html(j.viewcnt)
+						).appendTo($('tbody'));
+					});
+					(ui.page()).appendTo($('#content'));
+					let ul = $('.pagination');
+					for(let i=d.page.beginPage ; i<=d.page.endPage ; i++){
+						let ac=(i==d.page.pageNumber)? "active" : ""; // 함수 안에 있기 때문에 cc를 쓰던 말던 성능 차이가 거의 없다.
+						$('<li />').addClass("page-item "+ac).append($('<a />').addClass("page-link").html(i)).appendTo(ul).click(e=>{
+							e.preventDefault();
+							app.service.myBoard({id:d.writer , pageNo:i});
+						});
+					}
+					let disp = (d.page.existPrev)? "": "disabled" ;
+					let disn = (d.page.existNext)? "": "disabled" ;
+					$('<li id="epo" />').addClass("page-item "+disp).append($("<span />").addClass("page-link").html("Previous")).prependTo(ul);
+					$('<li id="eno" />').addClass("page-item "+disn).append($("<span />").addClass("page-link").html("Next")).appendTo(ul);
+					if(d.page.existPrev){$('#epo').click(e=>{app.service.myBoard({id:d.writer , pageNo:parseInt(d.page.beginPage-1)});});}
+					if(d.page.existNext){$('#eno').click(e=>{app.service.myBoard({id:d.writer , pageNo:parseInt(d.page.endPage+1)});});}
+				});
+			});
+		}
+};
 app.router = {
 	init :x=>{
 		$.getScript(x+'/resources/js/router.js',

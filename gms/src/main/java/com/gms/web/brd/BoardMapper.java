@@ -13,7 +13,10 @@ public interface BoardMapper {
 	public List<?> list(Map<?, ?> p);
 	public Board get(Board p);
 	public List<Board> getAll(Pagination p);
-	public Integer count(Map<?, ?> p);
+	public List<Board> getMy(Map<?,?> p);
+	public Integer count(Board p);
+	public Integer countAll();
+	public Integer countMy(Map<?,?> p);
 	public void put(Board p);
 	public void delete(Board p);
 }

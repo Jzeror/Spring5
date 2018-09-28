@@ -19,7 +19,7 @@ function headerUI(){
 		+'          <div class="row">'
 		+'            <div class="inner text-center">'
 		+'              <h1 class="logo-name"> Grade Management System </h1>'
-		+'              <h2>jieun</h2>'
+		+'              <h2>ManJjizNam</h2>'
 		+'              <p>-IU-</p>'
 		+'            </div>'
 		+'          </div>'

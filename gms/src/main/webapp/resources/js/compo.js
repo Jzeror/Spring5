@@ -13,10 +13,6 @@ var ui = {
 			}
 			return y;
 		},
-		
-						
-			/**/
-			
 		label : x=>{
 			return $('<label />')
 						.attr('for',x.id).text(x.txt)
@@ -76,9 +72,14 @@ var ui = {
 			let t = $('<table />');
 			let thead = $('<thead/>');
 			let tr = $('<tr/>');
-			ph.html(x.head).appendTo(d);
+			d.append(
+					ph.html(x.head),
+					pb.html(x.body),
+					t.addClass(x.clazz)
+					);
+			/*ph.html(x.head).appendTo(d);
 			pb.html(x.body).appendTo(d);
-			t.addClass(x.clazz).appendTo(d);
+			t.addClass(x.clazz).appendTo(d);*/
 			tr.appendTo(thead);
 			$.each(x.list,(i,v)=>{
 				$('<th/>').html(v).appendTo(tr);
@@ -86,6 +87,29 @@ var ui = {
 			thead.appendTo(t);
 			$('<tbody/>').appendTo(t);
 			return d;
+		},
+		page : x=>{
+/*
+ <nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item disabled">
+      <span class="page-link">Previous</span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active">
+      <span class="page-link">
+        2
+        <span class="sr-only">(current)</span>
+      </span>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">Next</a>
+    </li>
+  </ul>
+</nav>
+ */		
+			return $('<ul class="pagination">').attr({id:'ulCp'}).appendTo($('<nav aria-label="...">'));
 		}
 }
 /*input : x=>{    이건 안된다 왜? test가 만들어지지가 않음.

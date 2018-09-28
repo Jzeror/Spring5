@@ -15,10 +15,39 @@
         WHERE B.NUM BETWEEN #{beginRow} AND #{endRow}
         ORDER BY B.NUM
 	</select>
+	<select id="getMy" resultType="com.gms.web.brd.Board">
+	 SELECT *
+        FROM (
+            SELECT
+                ROW_NUMBER() OVER(ORDER BY BNO DESC) AS NUM,
+                A.*
+            FROM
+                BOARD A
+            
+        )B
+        WHERE B.NUM BETWEEN #{beginRow} AND #{endRow}
+        AND
+            	writer LIKE #{writer}
+        ORDER BY B.NUM
+        
+	</select>
 	<select id="count" resultType="int">
 	SELECT COUNT(*) FROM board
 	</select>
-	
+	<select id="countAll" resultType="int">
+		SELECT
+			COUNT(*) 
+		FROM 
+			board
+	</select>
+	<select id="countMy" resultType="int">
+		SELECT
+			COUNT(*) 
+		FROM 
+			board
+		WHERE
+			writer = #{writer}
+	</select>
 <!-- 	SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
  
 FROM

@@ -20,10 +20,10 @@ public class Pagination implements Proxy{
     @Autowired BoardMapper brdMap;
 	@Override
 	public void carryOut(Map<?,?> map) {
-		this.pageNumber = (int)map.get("pageNumber");
+		this.pageNumber = Integer.parseInt(map.get("pageNumber").toString()); //멋있다 멋있어 역시 갓갓갓갓갓 형님 
 		this.pageSize = 5;
 		this.blockSize = 5;
-		this.rowCount = 60; //brdMap.count(map);
+		this.rowCount = (int)map.get("rowCount");
 		this.pageCount = (rowCount%pageSize==0)? rowCount/pageSize : rowCount/pageSize+1;
 		this.blockCount = (pageCount%blockSize==0)? pageCount/blockSize : pageCount/blockSize+1;
 		this.beginRow = (pageNumber-1)*pageSize +1;
@@ -34,7 +34,6 @@ public class Pagination implements Proxy{
 		this.nextBlock = beginPage + blockSize;
 		this.existPrev = (prevBlock >= 0);
 		this.existNext = (nextBlock <= pageCount);
-		
 		
 	}
     
