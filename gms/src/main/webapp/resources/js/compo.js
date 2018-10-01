@@ -69,13 +69,14 @@ var ui = {
 			let d = $('<div class="panel panel-'+x.type+'" />');
 			let ph = $('<div class="panel-heading" />');
 			let pb = $('<div class="panel-body" />');
+			let pf = $('<div class="panel-foot" />');
 			let t = $('<table />');
 			let thead = $('<thead/>');
 			let tr = $('<tr/>');
 			d.append(
 					ph.html(x.head),
 					pb.html(x.body),
-					t.addClass(x.clazz)
+					pf.append(t.addClass(x.clazz))
 					);
 			/*ph.html(x.head).appendTo(d);
 			pb.html(x.body).appendTo(d);

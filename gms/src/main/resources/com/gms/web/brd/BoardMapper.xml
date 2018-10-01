@@ -26,8 +26,7 @@
             
         )B
         WHERE B.NUM BETWEEN #{beginRow} AND #{endRow}
-        AND
-            	writer LIKE #{writer}
+        AND writer LIKE #{writer}
         ORDER BY B.NUM
         
 	</select>
@@ -47,6 +46,15 @@
 			board
 		WHERE
 			writer = #{writer}
+	</select>
+	<insert id="post">
+		INSERT INTO board (writer, title, content)
+		VALUES ( #{writer} , #{title} , #{content} )
+	</insert>
+	<select id="get" resultType="com.gms.web.brd.Board">
+		SELECT * 
+		FROM board 
+		WHERE bno = #{bno} 
 	</select>
 <!-- 	SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
  

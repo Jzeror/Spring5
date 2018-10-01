@@ -8,6 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,19 +34,10 @@ public class BoardCtrl {
 		map.clear();
 		map.put("pageNumber", pageNo);
 		map.put("rowCount", brdMap.countAll());
-		
 		PageProxy pxy = new PageProxy();
 		pxy.carryOut(map);
 		Pagination page = pxy.getPagination();
-
 		// 화면에 rowCount, existPrev , prevBlock, beginPage, endPage, existNext, nextBlock 가 필요. 프록시에서 넘어왔는지 확인.
-		Util.log.accept("rowCount ::"+page.getRowCount());
-		Util.log.accept("existPrev ::"+page.isExistPrev());
-		Util.log.accept("prevBlock ::"+page.getPrevBlock());
-		Util.log.accept("beginPage ::"+page.getBeginPage());
-		Util.log.accept("endPage ::"+page.getEndPage());
-		Util.log.accept("existNext ::"+page.isExistNext());
-		Util.log.accept("nextBlock ::"+page.getNextBlock());
 		map.clear(); //맵을 청소해야하는지 아닌지를 고민하는게 키~~~포인트
 		map.put("list", brdMap.getAll(page));
 		Util.log.accept("리스트 :: "+brdMap.getAll(page));
@@ -60,16 +53,7 @@ public class BoardCtrl {
 		map.put("rowCount", brdMap.countMy(map));
 		PageProxy pxy = new PageProxy();
 		pxy.carryOut(map);
-		Pagination page = pxy.getPagination();
-
-		// 화면에 rowCount, existPrev , prevBlock, beginPage, endPage, existNext, nextBlock 가 필요. 프록시에서 넘어왔는지 확인.
-		Util.log.accept("rowCount ::"+page.getRowCount());
-		Util.log.accept("existPrev ::"+page.isExistPrev());
-		Util.log.accept("prevBlock ::"+page.getPrevBlock());
-		Util.log.accept("beginPage ::"+page.getBeginPage());
-		Util.log.accept("endPage ::"+page.getEndPage());
-		Util.log.accept("existNext ::"+page.isExistNext());
-		Util.log.accept("nextBlock ::"+page.getNextBlock());
+		page = pxy.getPagination();
 		map.clear(); //맵을 청소해야하는지 아닌지를 고민하는게 키~~~포인트
 		Util.log.accept("아이디디디트 ::"+id);
 		map.put("writer", id);
@@ -79,5 +63,18 @@ public class BoardCtrl {
 		Util.log.accept("ㄹ;ㅣ스트 ::"+map.get("list"));
 		map.put("page", page);
 		return map;
+	}
+	@PostMapping("/boards/add")
+	public void addBoard(@RequestBody Board prm){
+		logger.info("\n BoardCtrl :::: {} ","addBoard");
+		brdMap.post(prm);
+	}
+	@RequestMapping("/boards/get/{bno}")
+	public @ResponseBody Board getCnt(@PathVariable String bno){
+		logger.info("\n BoardCtrl :::: {} ","getCnt");		
+		Util.log.accept(bno);
+		brd.setBno(Integer.parseInt(bno));
+		brd=brdMap.get(brd);
+		return brd;
 	}
 }

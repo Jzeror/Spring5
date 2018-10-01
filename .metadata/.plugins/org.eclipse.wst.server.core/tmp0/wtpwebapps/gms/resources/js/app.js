@@ -191,12 +191,13 @@ app.service = {
 					$.each(d.list,(i,j)=>{
 						$('<tr />').append(
 						$('<td />').attr('width','5%').html(j.bno),
-						$('<td />').attr('width','10%').html(j.title),
-						$('<td />').attr('width','50%').html(j.content),
+						$('<td />').attr('width','60%').html($('<a/>')).html(j.title).click(e=>{
+							app.service.getCnt({bno : j.bno});
+						}),
 						$('<td />').attr('width','10%').html(j.writer),
 						$('<td />').attr('width','10%').html(j.regdate),
 						$('<td />').attr('width','5%').html(j.viewcnt)
-						).appendTo($('tbody'));
+						).appendTo($('tbody')); // tbody를 어떻게 인식하지?
 					});
 					(ui.page()).appendTo($('#content'));
 					let ul = $('.pagination');
@@ -213,6 +214,16 @@ app.service = {
 					$('<li id="eno" />').addClass("page-item "+disn).append($("<span />").addClass("page-link").html("Next")).appendTo(ul);
 					if(d.page.existPrev){$('#epo').click(e=>{app.service.boards(parseInt(d.page.beginPage-1));});}
 					if(d.page.existNext){$('#eno').click(e=>{app.service.boards(parseInt(d.page.endPage+1));});}
+					$('<div/>')
+					.attr({id : 'btn-wrt'})
+					.appendTo($('#content .panel-foot'));
+					$('<button/>')
+					.addClass('btn btn-secondary')
+					.html('새글')
+					.appendTo($('#btn-wrt'))
+					.click(e=>{
+						app.service.write(x);
+					});
 				});
 			});
 		},
@@ -255,6 +266,54 @@ app.service = {
 					$('<li id="eno" />').addClass("page-item "+disn).append($("<span />").addClass("page-link").html("Next")).appendTo(ul);
 					if(d.page.existPrev){$('#epo').click(e=>{app.service.myBoard({id:d.writer , pageNo:parseInt(d.page.beginPage-1)});});}
 					if(d.page.existNext){$('#eno').click(e=>{app.service.myBoard({id:d.writer , pageNo:parseInt(d.page.endPage+1)});});}
+				});
+			});
+		},
+		write:x=>{
+			$.getScript($.script()+'/writer.js',()=>{
+				$('.pagination').remove();
+				$('.panel-body').html('글쓰기');
+				$('.panel-foot').html(writerUI());
+				$('<button/>')
+				.addClass('btn btn-primary')
+				.html('확인')
+				.appendTo($('.panel-foot'))
+				.click(e=>{
+					$.ajax({
+						url : $.ctx()+'/boards/add',
+						method : 'POST',
+						contentType : 'application/json',
+						data : JSON.stringify({
+							title : $('#title').val(),
+							content : $('#ctn').val(),
+							writer : $('#writer').val()
+						}),
+						success : d=>{
+							app.service.boards();
+						},
+						error : (x,y,z)=>{}
+					});
+				});
+				$('<button/>')
+				.addClass('btn btn-primary')
+				.html('CANCLE')
+				.appendTo($('.panel-foot'))
+				.click(e=>{
+					app.service.boards(x);
+				});
+				
+			});
+		},
+		getCnt:x=>{			
+			$.getJSON($.ctx()+'/boards/get/'+x.bno ,d=>{
+				$.getScript($.script()+'/reader.js',()=>{
+					$('.pagination').remove();
+					$('.panel-body').html('게시글');
+					$('.panel-foot').html(readerUI());
+					$('#title').html(d.title);
+					$('#cnt').html(d.content);
+					$('#writer').html(d.writer);
+					
 				});
 			});
 		}
