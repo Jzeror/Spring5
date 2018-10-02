@@ -82,6 +82,7 @@ app.permission = (()=>{
 									$.getScript($.script()+'/header.js',()=>{
 										$('#header').html(headerUI);
 										$.getScript($.script()+'/content.js',()=>{
+											$.cookie("memId", d.MBR.memId);
 											$('#content').html(contentUI());
 											$('#mySidenav').empty();
 											$('<a />').attr("href","javascript:void(0)").addClass("closebtn").html('&times;').appendTo($('#mySidenav'))
@@ -93,7 +94,6 @@ app.permission = (()=>{
 											$('<a />').attr("id","myBoard").html('게시판').appendTo($('#mySidenav'))
 											.click(e=>{
 												app.service.myBoard({
-													id:d.MBR.memId,
 													pageNo:'1'
 													});
 											});
@@ -184,7 +184,7 @@ app.service = {
 							id : 'table',
 							head : '게시판',
 							body : '오픈 게시판',
-							list : ['No','제목','내용','글쓴이','작성일','조회수'],
+							list : ['No','제목','글쓴이','작성일','조회수'],
 							clazz : 'table table-bordered'
 					};
 					(ui.tbl(x)).appendTo($('#content'));
@@ -214,25 +214,15 @@ app.service = {
 					$('<li id="eno" />').addClass("page-item "+disn).append($("<span />").addClass("page-link").html("Next")).appendTo(ul);
 					if(d.page.existPrev){$('#epo').click(e=>{app.service.boards(parseInt(d.page.beginPage-1));});}
 					if(d.page.existNext){$('#eno').click(e=>{app.service.boards(parseInt(d.page.endPage+1));});}
-					$('<div/>')
-					.attr({id : 'btn-wrt'})
-					.appendTo($('#content .panel-foot'));
-					$('<button/>')
-					.addClass('btn btn-secondary')
-					.html('새글')
-					.appendTo($('#btn-wrt'))
-					.click(e=>{
-						app.service.write(x);
-					});
 				});
 			});
 		},
 		myBoard : x=>{
 			//if(x==undefined)x='1';
-			$.getJSON($.ctx()+'/boards/'+x.id+'/'+x.pageNo,d=>{
+			$.getJSON($.ctx()+'/boards/'+$.cookie("memId")+'/'+x.pageNo,d=>{
 				$.getScript($.script()+'/compo.js',()=>{
 					$('#content').empty();
-					let x = {
+					let s = {
 							type : 'default',
 							id : 'table',
 							head : '마이 게시판',
@@ -240,7 +230,7 @@ app.service = {
 							list : ['No','제목','내용','글쓴이','작성일','조회수'],
 							clazz : 'table table-bordered'
 					};
-					(ui.tbl(x)).appendTo($('#content'));
+					(ui.tbl(s)).appendTo($('#content'));
 					$.each(d.list,(i,j)=>{
 						$('<tr />').append(
 						$('<td />').attr('width','5%').html(j.bno),
@@ -266,6 +256,16 @@ app.service = {
 					$('<li id="eno" />').addClass("page-item "+disn).append($("<span />").addClass("page-link").html("Next")).appendTo(ul);
 					if(d.page.existPrev){$('#epo').click(e=>{app.service.myBoard({id:d.writer , pageNo:parseInt(d.page.beginPage-1)});});}
 					if(d.page.existNext){$('#eno').click(e=>{app.service.myBoard({id:d.writer , pageNo:parseInt(d.page.endPage+1)});});}
+					$('<div/>')
+					.attr({id : 'btn-wrt'})
+					.appendTo($('#content .panel-foot'));
+					$('<button/>')
+					.addClass('btn btn-secondary')
+					.html('새글')
+					.appendTo($('#btn-wrt'))
+					.click(e=>{
+						app.service.write(x);
+					});
 				});
 			});
 		},
@@ -274,6 +274,7 @@ app.service = {
 				$('.pagination').remove();
 				$('.panel-body').html('글쓰기');
 				$('.panel-foot').html(writerUI());
+				$('#writer').html($.cookie('memId'));
 				$('<button/>')
 				.addClass('btn btn-primary')
 				.html('확인')
@@ -286,22 +287,44 @@ app.service = {
 						data : JSON.stringify({
 							title : $('#title').val(),
 							content : $('#ctn').val(),
-							writer : $('#writer').val()
+							writer : $.cookie("memId")
 						}),
 						success : d=>{
 							app.service.boards();
 						},
 						error : (x,y,z)=>{}
 					});
-				});
+				}); // 확인버튼 END - 복잡해지면 구분하기 위해 써주자.
 				$('<button/>')
-				.addClass('btn btn-primary')
-				.html('CANCLE')
+				.addClass('btn btn-warning')
+				.html('취소')
 				.appendTo($('.panel-foot'))
 				.click(e=>{
-					app.service.boards(x);
+					app.service.myBoard(x);
 				});
-				
+				$('<form id="frm" action="uploadForm" method="post" enctype="multipart/form-data" />'
+						+'<input type = "file" name="file">'
+						+'<input type = "submit">'
+						+'</form>'
+				)
+				.html('사진 업로드')
+				.appendTo($('.panel-foot'))
+				.click(e=>{
+				    var fileData = new FormData($('#frm'));
+				    // ajax
+				    $.ajax({
+				        url: $.ctx()+'/boards/fileupload',
+				        type:'POST',
+				        data:fileData,
+				        async:false,
+				        cache:false,
+				        contentType:false,
+				        processData:false
+				    }).done(function(response){
+				        alert(response);
+				    });
+
+				});
 			});
 		},
 		getCnt:x=>{			
@@ -313,6 +336,66 @@ app.service = {
 					$('#title').html(d.title);
 					$('#cnt').html(d.content);
 					$('#writer').html(d.writer);
+					$('<button/>')
+					.addClass('btn btn-primary')
+					.html('수정')
+					.appendTo($('.panel-foot'))
+					.click(e=>{
+						app.service.modifyBrd(x);
+					});
+					$('<button/>')
+					.addClass('btn btn-primary')
+					.html('삭제')
+					.appendTo($('.panel-foot'))
+					.click(e=>{
+						let conf = confirm("게시글을 삭제합니다.");
+						if(conf == true){
+							alert(x.bno);
+							$.getJSON($.ctx()+'/boards/dltB/'+x.bno);
+							app.service.boards();
+						}
+					});
+					
+				});
+			});
+		},
+		modifyBrd:x=>{
+			$.getJSON($.ctx()+'/boards/get/'+x.bno ,d=>{
+				$.getScript($.script()+'/modifyBrd.js',()=>{
+					$('.pagination').remove();
+					$('.panel-body').html('게시글');
+					$('.panel-foot').html(modifyBrdUI());
+					$('#titleM').html(d.title);
+					$('#cntM').html(d.content);
+					$('#writerM').html(d.writer);
+				
+					$('<button/>')
+					.addClass('btn btn-primary')
+					.html('확인')
+					.appendTo($('.panel-foot'))
+					.click(e=>{
+						$.ajax({
+							url : $.ctx()+'/boards/mdfB',
+							method : 'POST',
+							contentType : 'application/json',
+							data : JSON.stringify({
+								title : $('#titleM').val(),
+								content : $('#cntM').val(),
+								writer : $.cookie("memId")
+							}),
+							success : d=>{
+								app.service.boards();
+							},
+							error : (x,y,z)=>{}
+						});
+					});
+					$('<button/>')
+					.addClass('btn btn-primary')
+					.html('취소')
+					.appendTo($('.panel-foot'))
+					.click(e=>{
+						app.service.getCnt(x);
+					});
 					
 				});
 			});
@@ -351,6 +434,38 @@ app.router = {
 	        	});
 	        	$('#board').click(e=>{
 	                app.board.init();
+	        	});
+	        	$('#drag_btn').click(e=>{
+	        		$('#content').html(
+	        				'<h3>AJAX FILE UPLOAD</h3>'
+	        				+'<div class="fileDrop" ></div>'
+	        				+'<div class="uploadedList"></div>'
+	        		);
+	        		$('.fileDrop')
+	        		.attr('style','width:100%; height:200px; border:1px dotted blue ')
+	        		.on('dragenter dragover' ,e=>{
+	        			e.preventDefault();
+	        		});
+	        		$('.fileDrop')
+	        		.on('drop' ,e=>{
+	        			e.preventDefault();
+	        		var files = e.originalEvent.dataTransfer.files;
+	        		var file = files[0];
+	        		//console.log(file);
+	        		var formData  = new FormData();
+	        		formData.append("file",file);
+	        		$.ajax({
+	        			url : $.ctx()+'/uploadAjax',
+	        			data:formData,
+	        			dataType : 'text',
+	        			processData : false,
+	        			contentType : false,
+	        			type : 'POST',
+	        			success : d=>{
+	        				alert('파일업로드 성공!! '+d);
+	        			}
+	        		});
+	        		});
 	        	});
 	        }).fail(x=>{
 	        	console.log('로드실패');

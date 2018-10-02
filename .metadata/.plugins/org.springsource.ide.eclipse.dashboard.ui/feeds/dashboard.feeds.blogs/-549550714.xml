@@ -9,7 +9,7 @@
   <entry>
     <title>What's new in Spring Data Lovelace?</title>
     <link rel="alternate" href="https://spring.io/blog/2018/09/27/what-s-new-in-spring-data-lovelace" />
-    <category term="releases" label="Releases" />
+    <category term="engineering" label="Engineering" />
     <author>
       <name>Oliver Gierke</name>
     </author>
@@ -663,9 +663,6 @@ public class ConsumerApplication implements ApplicationListener&amp;lt;Applicati
 &lt;p&gt;This blog post explains the new and noteworthy in &lt;a href="https://github.com/spring-projects/spring-data-commons/wiki/Release-Train-Lovelace"&gt;Spring Data Lovelace&lt;/a&gt; for &lt;a href="https://spring.io/blog/2018/09/26/what-s-new-in-spring-data-lovelace-for-redis-and-apache-cassandra#cassandra"&gt;Apache Cassandra&lt;/a&gt; and &lt;a href="https://spring.io/blog/2018/09/26/what-s-new-in-spring-data-lovelace-for-redis-and-apache-cassandra#redis"&gt;Redis&lt;/a&gt;.
 Make sure to also check out the blog post on &lt;a href="https://spring.io/blog/2018/09/27/what-s-new-in-spring-data-lovelace-for-mongodb"&gt;What&amp;#8217;s new in Spring Data Lovelace for MongoDB?&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class="sect1"&gt;
-&lt;h2 id="introduction"&gt;&lt;a class="anchor" href="#introduction"&gt;&lt;/a&gt;Introduction&lt;/h2&gt;
-&lt;div class="sectionbody"&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;With Spring Data Lovelace just released in its generally available version last week, it&amp;#8217;s time to have a brief walk through the new feature&amp;#8217;s we have added.
 The release train is pretty packed with features.&lt;/p&gt;
@@ -673,16 +670,13 @@ The release train is pretty packed with features.&lt;/p&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;In this blog post, I&amp;#8217;ll be covering &lt;a href="https://spring.io/blog/2018/09/26/what-s-new-in-spring-data-lovelace-for-redis-and-apache-cassandra#cassandra"&gt;Apache Cassandra&lt;/a&gt; and &lt;a href="https://spring.io/blog/2018/09/26/what-s-new-in-spring-data-lovelace-for-redis-and-apache-cassandra#redis"&gt;Redis&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="sect1"&gt;
-&lt;h2 id="cassandra"&gt;&lt;a class="anchor" href="#cassandra"&gt;&lt;/a&gt;Spring Data for Apache Cassandra&lt;/h2&gt;
-&lt;div class="sectionbody"&gt;
+&lt;h1 id="cassandra" class="sect0"&gt;&lt;a class="anchor" href="#cassandra"&gt;&lt;/a&gt;Spring Data for Apache Cassandra&lt;/h1&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;With this release, we refined data access with Cassandra-specific types, introduced support for lifecycle events, improved the programming experience for both Java and Kotlin usage and included various other refinements. Let us take a look at how this release can help improve your data access to Cassandra.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class="sect2"&gt;
-&lt;h3 id="map-and-tuple-refinements"&gt;&lt;a class="anchor" href="#map-and-tuple-refinements"&gt;&lt;/a&gt;Map and Tuple Refinements&lt;/h3&gt;
+&lt;div class="sect1"&gt;
+&lt;h2 id="map-and-tuple-refinements"&gt;&lt;a class="anchor" href="#map-and-tuple-refinements"&gt;&lt;/a&gt;Map and Tuple Refinements&lt;/h2&gt;
+&lt;div class="sectionbody"&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;Map and Tuple data types are specific types in Cassandra that allow storing multiple values within a single column. Previously, we supported both types in their raw form in mapped entities, which means that you could use only maps with primitive keys and values. For tuples, you could only use &lt;code&gt;TupleValue&lt;/code&gt;, the raw Cassandra driver type, without further mapping or even schema support.&lt;/p&gt;
 &lt;/div&gt;
@@ -793,8 +787,10 @@ class Dependance {
 &lt;p&gt;See our &lt;a href="https://github.com/spring-projects/spring-data-examples/tree/be17e153049342e7bc7f3d63f93cc221da72dfab/cassandra/example/src/main/java/example/springdata/cassandra/convert"&gt;examples for mapped tuples&lt;/a&gt; for further details.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="sect2"&gt;
-&lt;h3 id="lifecycle-events"&gt;&lt;a class="anchor" href="#lifecycle-events"&gt;&lt;/a&gt;Lifecycle Events&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class="sect1"&gt;
+&lt;h2 id="lifecycle-events"&gt;&lt;a class="anchor" href="#lifecycle-events"&gt;&lt;/a&gt;Lifecycle Events&lt;/h2&gt;
+&lt;div class="sectionbody"&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;The Cassandra mapping framework now includes several &lt;code&gt;org.springframework.context.ApplicationEvent&lt;/code&gt; events that your application can respond to by registering special beans in the &lt;code&gt;ApplicationContext&lt;/code&gt;. To intercept an object before it goes through the conversion process (which turns your domain object into a &lt;code&gt;Statement&lt;/code&gt;), you can register a subclass of &lt;code&gt;AbstractCassandraEventListener&lt;/code&gt; that overrides the &lt;code&gt;onBeforeSave&lt;/code&gt; method. When the event is dispatched, your listener is called and passed the domain object before it goes into the converter. The following example shows how to use &lt;code&gt;onBeforeSave&lt;/code&gt;:&lt;/p&gt;
 &lt;/div&gt;
@@ -843,8 +839,10 @@ class Dependance {
 &lt;p&gt;See our &lt;a href="https://github.com/spring-projects/spring-data-examples/blob/be17e153049342e7bc7f3d63f93cc221da72dfab/cassandra/example/src/test/java/example/springdata/cassandra/events/LifecycleEventsTests.java"&gt;examples for Lifecycle Events&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="sect2"&gt;
-&lt;h3 id="kotlin-extensions"&gt;&lt;a class="anchor" href="#kotlin-extensions"&gt;&lt;/a&gt;Kotlin Extensions&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class="sect1"&gt;
+&lt;h2 id="kotlin-extensions"&gt;&lt;a class="anchor" href="#kotlin-extensions"&gt;&lt;/a&gt;Kotlin Extensions&lt;/h2&gt;
+&lt;div class="sectionbody"&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;Spring Data exposes methods that accept a target type to either query for or to project results values onto. Kotlin represents classes with its own type (&lt;code&gt;KClass&lt;/code&gt;), which can be an obstacle when attempting to obtain a Java Class type.&lt;/p&gt;
 &lt;/div&gt;
@@ -865,8 +863,10 @@ operations.find&amp;lt;Person&amp;gt;().as&amp;lt;Contact&amp;gt;
 &lt;p&gt;See our &lt;a href="https://github.com/spring-projects/spring-data-examples/tree/boot-next/cassandra/kotlin"&gt;Cassandra Kotlin usage&lt;/a&gt; examples for further details.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="sect2"&gt;
-&lt;h3 id="fluent-template-api"&gt;&lt;a class="anchor" href="#fluent-template-api"&gt;&lt;/a&gt;Fluent Template API&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class="sect1"&gt;
+&lt;h2 id="fluent-template-api"&gt;&lt;a class="anchor" href="#fluent-template-api"&gt;&lt;/a&gt;Fluent Template API&lt;/h2&gt;
+&lt;div class="sectionbody"&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;The &lt;code&gt;CassandraOperations&lt;/code&gt; interface is one of the central components when it comes to more low-level interaction with Apache Cassandra. It offers a wide range of methods that cover needs from batching and result streaming to CRUD operations. You can find multiple overloads for each method. Most of them cover optional or alternative parts of the API, such as query by CQL, &lt;code&gt;Statement&lt;/code&gt;, or query by &lt;code&gt;Query&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -922,10 +922,7 @@ long count = select.count();&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="sect1"&gt;
-&lt;h2 id="redis"&gt;&lt;a class="anchor" href="#redis"&gt;&lt;/a&gt;Spring Data Redis&lt;/h2&gt;
-&lt;div class="sectionbody"&gt;
+&lt;h1 id="redis" class="sect0"&gt;&lt;a class="anchor" href="#redis"&gt;&lt;/a&gt;Spring Data Redis&lt;/h1&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;This release of Spring Data Redis ships with improvements across various themes that did not fit into the 2.0 release. Most of them smooth out the rough edges around Redis cluster usage. The core themes are:&lt;/p&gt;
 &lt;/div&gt;
@@ -942,8 +939,9 @@ long count = select.count();&lt;/code&gt;&lt;/pre&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
-&lt;div class="sect2"&gt;
-&lt;h3 id="connection-improvements"&gt;&lt;a class="anchor" href="#connection-improvements"&gt;&lt;/a&gt;Connection Improvements&lt;/h3&gt;
+&lt;div class="sect1"&gt;
+&lt;h2 id="connection-improvements"&gt;&lt;a class="anchor" href="#connection-improvements"&gt;&lt;/a&gt;Connection Improvements&lt;/h2&gt;
+&lt;div class="sectionbody"&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;Redis supports various modes of operations: Standalone, Standalone with Replication, Redis Sentinel with or without Replication, Redis Cluster. We have covered Standalone, Redis Sentinel and Redis Cluster modes. The missing pieces so far have been reads from replicas. This release introduces support for Replica reads across the variety of Redis operation modes. The following example shows how to use this new feature:&lt;/p&gt;
 &lt;/div&gt;
@@ -995,8 +993,10 @@ LettuceConnectionFactory factory = new LettuceConnectionFactory(endpoint);&lt;/c
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="sect2"&gt;
-&lt;h3 id="redis-cluster-refinements"&gt;&lt;a class="anchor" href="#redis-cluster-refinements"&gt;&lt;/a&gt;Redis Cluster Refinements&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class="sect1"&gt;
+&lt;h2 id="redis-cluster-refinements"&gt;&lt;a class="anchor" href="#redis-cluster-refinements"&gt;&lt;/a&gt;Redis Cluster Refinements&lt;/h2&gt;
+&lt;div class="sectionbody"&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;This release ships with refinements in connection handling for Redis Cluster connections that use the Lettuce driver. Previous versions did not share the underlying Lettuce connection to Redis Cluster, which manifested in performance degradations as new connections always established a new cluster connection. This behavior causes an impact when issuing multiple commands as, each command basically uses a new &lt;code&gt;RedisConnection&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -1041,8 +1041,10 @@ scan.forEachRemaining(key -&amp;gt; ¡¦);&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class="sect2"&gt;
-&lt;h3 id="redis-repository-improvements"&gt;&lt;a class="anchor" href="#redis-repository-improvements"&gt;&lt;/a&gt;Redis Repository Improvements&lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class="sect1"&gt;
+&lt;h2 id="redis-repository-improvements"&gt;&lt;a class="anchor" href="#redis-repository-improvements"&gt;&lt;/a&gt;Redis Repository Improvements&lt;/h2&gt;
+&lt;div class="sectionbody"&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;This release ships with Query by Example support for Redis repositories. Query by Example is a user-friendly querying technique with a simple interface. It allows dynamic query creation and does not require you to write queries that contain field names. The nature of Query by Example does not require a query language, as the actual query derives from the &lt;code&gt;Example&lt;/code&gt; object. You can now define an &lt;code&gt;Example&lt;/code&gt; to query for indexed values that are stored in Redis hashes. Redis repositories can implement the &lt;code&gt;QueryByExampleExecutor&lt;/code&gt; fragment to inherit Query by Example methods. Take a look at the following snippet:&lt;/p&gt;
 &lt;/div&gt;
@@ -1096,7 +1098,6 @@ class Person {
 &lt;/div&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;Several other enhancements have found their way into the Redis module so make sure to check out the &lt;a href="https://docs.spring.io/spring-data/redis/docs/2.1.0.RELEASE/reference/html/#new-in-2.1.0"&gt;new features&lt;/a&gt; section in the reference documentation to learn more about keyspace scanning, reactive Pub/Sub, and new commands.&lt;/p&gt;
-&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;</content>
@@ -1194,9 +1195,7 @@ background behind the shift. We in the Spring team had a lot of fun
 working on this and collaborating with the folks at Microsoft to get
 the best blend of the two technologies for our users.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class="sect1"&gt;
-&lt;h2 id="azure-functions-for-java"&gt;&lt;a class="anchor" href="#azure-functions-for-java"&gt;&lt;/a&gt;Azure Functions for Java&lt;/h2&gt;
-&lt;div class="sectionbody"&gt;
+&lt;h1 id="azure-functions-for-java" class="sect0"&gt;&lt;a class="anchor" href="#azure-functions-for-java"&gt;&lt;/a&gt;Azure Functions for Java&lt;/h1&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;Microsoft has had Java support in Azure Functions for a while, and it
 enables developers to easily write and deploy Java code that connects
@@ -1362,11 +1361,7 @@ sample. They are all important but basically boilerplate - you should
 be able to copy them and re-use the same configuration in all Azure
 Function Applications.&lt;/p&gt;
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class="sect1"&gt;
-&lt;h2 id="spring-cloud-function"&gt;&lt;a class="anchor" href="#spring-cloud-function"&gt;&lt;/a&gt;Spring Cloud Function&lt;/h2&gt;
-&lt;div class="sectionbody"&gt;
+&lt;h1 id="spring-cloud-function" class="sect0"&gt;&lt;a class="anchor" href="#spring-cloud-function"&gt;&lt;/a&gt;Spring Cloud Function&lt;/h1&gt;
 &lt;div class="paragraph"&gt;
 &lt;p&gt;Spring Cloud Function aims to support similar serverless use cases
 when the application developer declares Spring beans of type
@@ -1498,8 +1493,6 @@ If you are at &lt;a href="https://springoneplatform.io"&gt;Spring One Platform&l
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 &lt;/div&gt;</content>
   </entry>
   <entry>

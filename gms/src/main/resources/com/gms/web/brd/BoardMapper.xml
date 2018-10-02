@@ -56,6 +56,14 @@
 		FROM board 
 		WHERE bno = #{bno} 
 	</select>
+	<update id="put">
+		UPDATE board SET title  = #{title}, content = #{content} 
+		WHERE bno LIKE #{bno} 
+	</update>
+	<delete id="delete">
+		DELETE FROM board
+		WHERE bno LIKE #{bno}
+	</delete>
 <!-- 	SELECT @RNUM := @RNUM + 1 AS ROWNUM, t.*
  
 FROM

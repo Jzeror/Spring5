@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gms.web.point.PointMapper">
+	<update id="update">
+		UPDATE point SET ALL_POINT  = (ALL_POINT-30), MEM_POINT = (MEM_POINT+30) 
+		WHERE memId LIKE #{writer} 
+	</update>
 <!-- 
 	<insert id="insert">
 		insert into tbl_board (title, content, writer)
