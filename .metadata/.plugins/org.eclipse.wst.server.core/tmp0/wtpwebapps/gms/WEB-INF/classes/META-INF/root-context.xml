@@ -55,4 +55,40 @@
 	<bean id="multipartResolver"
             class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
 	<tx:annotation-driven/>
+	<!--이메일 인증 관련  <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="hanbit"/>
+		<property name="password" value="hanbit"/>
+ 
+		The name of the property, following JavaBean naming conventions
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean> -->
+	<bean id="sampleInterceptor" class="com.gms.web.interceptors.LoginInterceptor"/>
+    <mvc:interceptors>
+            <mvc:interceptor>
+                <mvc:mapping path="/mbr/login"/>
+                <ref bean="sampleInterceptor"/>
+            </mvc:interceptor>
+    </mvc:interceptors>
+	<!-- 노래 트는거 <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManager">
+        <constructor-arg>
+            <bean class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
+                <constructor-arg>
+                    <map>
+                        <entry key="atom">
+                            <util:constant static-field="org.springframework.http.MediaType.APPLICATION_ATOM_XML"/>
+                        </entry>
+                    </map>
+                </constructor-arg>
+            </bean>
+        </constructor-arg>
+    </bean> -->
 </beans>

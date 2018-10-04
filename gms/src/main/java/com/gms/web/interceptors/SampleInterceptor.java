@@ -1,4 +1,4 @@
-package com.gms.web.interceptor;
+package com.gms.web.interceptors;
 
 import java.lang.reflect.Method;
 

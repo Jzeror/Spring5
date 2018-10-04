@@ -2,27 +2,27 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="bno" key="selection"/>
+		<item value="/login" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="/login"/>
+			<item value="succe"/>
+			<item value="su"/>
+			<item value="inter"/>
+			<item value=".done"/>
+			<item value="mult"/>
+			<item value="multi"/>
+			<item value="C:\Users\1027\Spring4workspace\gms\src\main\webapp\resources\img"/>
+			<item value="writer"/>
+			<item value="pageNo"/>
+			<item value="tx"/>
+			<item value="write"/>
+			<item value="content"/>
 			<item value="bno"/>
 			<item value="panel"/>
-			<item value="tbody"/>
-			<item value="pageNum"/>
-			<item value="app.per"/>
-			<item value="app.pro"/>
-			<item value="id=&quot;board"/>
-			<item value="board"/>
-			<item value="alert"/>
-			<item value="app.board."/>
-			<item value="게시판"/>
-			<item value="app.permission"/>
-			<item value="login"/>
-			<item value="Int"/>
-			<item value="Integer"/>
 		</list>
 		<list key="replacehistory">
 			<item value=","/>

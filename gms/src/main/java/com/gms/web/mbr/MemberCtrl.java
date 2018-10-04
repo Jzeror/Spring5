@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,6 +29,7 @@ public class MemberCtrl {
 	@Autowired	MemberMapper mbrMapper;
 	@Autowired	Member mbr;
 	@Autowired Util2 util;
+	@Autowired HashMap<String, Object> map;
 	@PostMapping("/add")
 	public @ResponseBody Map<String, Member> add(@RequestBody Member prm ) {
 		Map<String, Member> rmap = new HashMap<>();
@@ -74,7 +76,12 @@ public class MemberCtrl {
 		member.setMemId(((Member) model.asMap().get("user")).getMemId()); 
 		return "redirect:/";
 	}
-
+	@GetMapping("/auth")
+    public @ResponseBody Map<String,Object> auth(
+            @ModelAttribute("loginUser") String loginUser){
+        System.out.println("loginUser is "+loginUser);
+        return map;
+    }
 	@PostMapping("/login")
 	public @ResponseBody Map<String,Object> login(@RequestBody Member param) {
 		Map<String, Object> rmap = new HashMap<>();

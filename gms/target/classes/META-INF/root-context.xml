@@ -71,12 +71,13 @@
 			</props>
 		</property>
 	</bean> -->
-	<!-- 인터셉터 관련 <mvc:interceptors>
-			<mvc:interceptor>
-				<mvc:mapping path="/"/>
-				<bean class="com.hospital.web.interceptors.LoginInterceptor" />
-			</mvc:interceptor>
-	</mvc:interceptors> -->
+	<bean id="sampleInterceptor" class="com.gms.web.interceptors.LoginInterceptor"/>
+    <mvc:interceptors>
+            <mvc:interceptor>
+                <mvc:mapping path="/mbr/login"/>
+                <ref bean="sampleInterceptor"/>
+            </mvc:interceptor>
+    </mvc:interceptors>
 	<!-- 노래 트는거 <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManager">
         <constructor-arg>
             <bean class="org.springframework.web.accept.PathExtensionContentNegotiationStrategy">
