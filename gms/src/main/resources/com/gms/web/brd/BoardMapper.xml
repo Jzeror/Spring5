@@ -71,6 +71,6 @@ FROM
   ) t,
  
   ( SELECT @RNUM := 0 ) R
-
+--!>
 
 </mapper>
